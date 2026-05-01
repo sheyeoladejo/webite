@@ -1,52 +1,152 @@
+{{ 'template-collection.css' | asset_url | stylesheet_tag }}
 {{ 'component-article-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
-{{ 'section-main-blog.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign mb_section_id = section.id
+  assign mb_color_scheme = section.settings.color_scheme | default: 'scheme-1'
+  assign mb_heading_size = section.settings.heading_size | default: 'h1'
+  assign mb_pad_top = section.settings.padding_top | default: 36
+  assign mb_pad_bottom = section.settings.padding_bottom | default: 36
+-%}
 
 {%- style -%}
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  .section-{{ mb_section_id }}-padding {
+    padding-top: {{ mb_pad_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ mb_pad_bottom | times: 0.75 | round: 0 }}px;
   }
 
   @media screen and (min-width: 768px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
+    .section-{{ mb_section_id }}-padding {
+      padding-top: {{ mb_pad_top }}px;
+      padding-bottom: {{ mb_pad_bottom }}px;
     }
+  }
+
+  #main-blog-{{ mb_section_id }} .collection__title {
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  /*
+   Matches moments-grid: CSS Grid — <640px 1 column, ≥640px 2 cols; orphans stay half-width (not stretched).
+  */
+  #main-blog-{{ mb_section_id }} .moments-grid__list.grid {
+    display: grid;
+    width: 100%;
+    margin-bottom: 2rem;
+    padding: 0;
+    list-style: none;
+    flex-wrap: unset;
+    column-gap: var(--grid-mobile-horizontal-spacing);
+    row-gap: var(--grid-mobile-vertical-spacing);
+    grid-template-columns: minmax(0, 1fr);
+    justify-content: initial;
+  }
+
+  #main-blog-{{ mb_section_id }} .moments-grid__list.grid:last-child {
+    margin-bottom: 0;
+  }
+
+  @media screen and (min-width: 640px) {
+    #main-blog-{{ mb_section_id }} .moments-grid__list.grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: var(--grid-desktop-horizontal-spacing);
+      row-gap: var(--grid-desktop-vertical-spacing);
+    }
+  }
+
+  #main-blog-{{ mb_section_id }} .moments-grid__list .grid__item {
+    width: 100%;
+    max-width: none;
+    flex-grow: 0;
+    flex-shrink: 0;
+    min-width: 0;
+  }
+
+  #main-blog-{{ mb_section_id }} .card__heading,
+  #main-blog-{{ mb_section_id }} .card__heading a {
+    text-transform: uppercase;
+    text-align: left;
+  }
+
+  @media screen and (min-width: 640px) {
+    #main-blog-{{ mb_section_id }} .card__heading,
+    #main-blog-{{ mb_section_id }} .card__heading a {
+      text-align: center;
+    }
+  }
+
+  #main-blog-{{ mb_section_id }} .card--stacked-product > .card__content .card__heading a {
+    padding-left: 0;
+    padding-right: 0;
   }
 {%- endstyle -%}
 
 {%- paginate blog.articles by 6 -%}
-  <div class="main-blog page-width section-{{ section.id }}-padding">
-    <h1 class="title--primary{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-      {{ blog.title | escape }}
-    </h1>
+  <div class="color-{{ mb_color_scheme }} isolate gradient">
+    <div
+      class="collection section-{{ mb_section_id }}-padding"
+      id="main-blog-{{ mb_section_id }}"
+      data-id="{{ mb_section_id }}"
+    >
+      <div class="collection__title title-wrapper title-wrapper--no-top-margin page-width">
+        <h1 class="title inline-richtext {{ mb_heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+          {{ blog.title | escape }}
+        </h1>
+      </div>
 
-    <div class="blog-articles {% if section.settings.layout == 'collage' %}blog-articles--collage{% endif %}">
-      {%- for article in blog.articles -%}
-        <div
-          class="blog-articles__article article{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-          {% if settings.animations_reveal_on_scroll %}
-            data-cascade
-            style="--animation-order: {{ forloop.index }};"
-          {% endif %}
-        >
-          {%- render 'article-card',
-            article: article,
-            media_height: section.settings.image_height,
-            media_aspect_ratio: article.image.aspect_ratio,
-            show_image: section.settings.show_image,
-            show_date: section.settings.show_date,
-            show_author: section.settings.show_author,
-            show_excerpt: true
-          -%}
-        </div>
-      {%- endfor -%}
+      <div
+        class="product-grid-container{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %} page-width"
+        {% if settings.animations_reveal_on_scroll %}
+          data-cascade
+        {% endif %}
+      >
+        {%- if blog.articles.size == 0 -%}
+          <div class="main-blog__empty center">
+            <p>{{ 'blogs.article.no_posts' | t }}</p>
+          </div>
+        {%- else -%}
+          <ul
+            id="BlogGrid-{{ mb_section_id }}"
+            class="
+              grid product-grid moments-grid__list contains-card contains-card--product{% if settings.card_style == 'standard' %} contains-card--standard{% endif %}
+              {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}
+            "
+            role="list"
+          >
+            {%- for article in blog.articles -%}
+              {%- assign lazy_load = false -%}
+              {%- if forloop.index > 2 -%}
+                {%- assign lazy_load = true -%}
+              {%- endif -%}
+              <li
+                class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+                {% if settings.animations_reveal_on_scroll %}
+                  data-cascade
+                  style="--animation-order: {{ forloop.index }};"
+                {% endif %}
+              >
+                {% render 'article-card',
+                  blog: blog,
+                  article: article,
+                  show_image: section.settings.show_image,
+                  show_date: section.settings.show_date,
+                  show_author: section.settings.show_author,
+                  show_excerpt: true,
+                  stacked_layout: true,
+                  lazy_load: lazy_load
+                %}
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        {%- if paginate.pages > 1 -%}
+          {%- render 'pagination', paginate: paginate -%}
+        {%- endif -%}
+      </div>
     </div>
-
-    {%- if paginate.pages > 1 -%}
-      {%- render 'pagination', paginate: paginate -%}
-    {%- endif -%}
   </div>
 {%- endpaginate -%}
 
@@ -58,49 +158,41 @@
   "settings": [
     {
       "type": "select",
-      "id": "layout",
+      "id": "heading_size",
       "options": [
         {
-          "value": "grid",
-          "label": "t:sections.main-blog.settings.layout.options__1.label"
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__1.label"
         },
         {
-          "value": "collage",
-          "label": "t:sections.main-blog.settings.layout.options__2.label"
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__3.label"
+        },
+        {
+          "value": "hxl",
+          "label": "t:sections.all.heading_size.options__4.label"
+        },
+        {
+          "value": "hxxl",
+          "label": "t:sections.all.heading_size.options__5.label"
         }
       ],
-      "default": "collage",
-      "label": "t:sections.main-blog.settings.layout.label"
+      "default": "h1",
+      "label": "t:sections.all.heading_size.label"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.main-blog.settings.grid_layout_paragraph.content"
     },
     {
       "type": "checkbox",
       "id": "show_image",
       "default": true,
       "label": "t:sections.main-blog.settings.show_image.label"
-    },
-    {
-      "type": "select",
-      "id": "image_height",
-      "options": [
-        {
-          "value": "adapt",
-          "label": "t:sections.main-blog.settings.image_height.options__1.label"
-        },
-        {
-          "value": "small",
-          "label": "t:sections.main-blog.settings.image_height.options__2.label"
-        },
-        {
-          "value": "medium",
-          "label": "t:sections.main-blog.settings.image_height.options__3.label"
-        },
-        {
-          "value": "large",
-          "label": "t:sections.main-blog.settings.image_height.options__4.label"
-        }
-      ],
-      "default": "medium",
-      "label": "t:sections.main-blog.settings.image_height.label"
     },
     {
       "type": "checkbox",
@@ -113,6 +205,12 @@
       "id": "show_author",
       "default": false,
       "label": "t:sections.main-blog.settings.show_author.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
     },
     {
       "type": "header",

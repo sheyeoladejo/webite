@@ -1714,6 +1714,9 @@
 		"main-blog": {
 			"name": "Blog posts",
 			"settings": {
+				"grid_layout_paragraph": {
+					"content": "Two columns from 640px width; one column below. Article images use a 3:4 portrait frame (matching product cards); title and excerpt sit below the image."
+				},
 				"show_image": {
 					"label": "Featured image"
 				},
@@ -1722,30 +1725,6 @@
 				},
 				"show_author": {
 					"label": "Author"
-				},
-				"layout": {
-					"label": "Layout",
-					"options__1": {
-						"label": "Grid"
-					},
-					"options__2": {
-						"label": "Collage"
-					}
-				},
-				"image_height": {
-					"label": "Image height",
-					"options__1": {
-						"label": "Adapt to image"
-					},
-					"options__2": {
-						"label": "Small"
-					},
-					"options__3": {
-						"label": "Medium"
-					},
-					"options__4": {
-						"label": "Large"
-					}
 				}
 			}
 		},

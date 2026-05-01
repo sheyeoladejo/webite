@@ -62,6 +62,8 @@
     {%- else -%}
       <span>{{ breadcrumb_collection_title | escape }}</span>
     {%- endif -%}
+  {%- elsif template_type == 'blog' and blog != blank -%}
+    <span>{{ blog.title | escape }}</span>
   {%- elsif page != blank -%}
     <span>{{ page.title | escape }}</span>
   {%- elsif current_title != blank -%}

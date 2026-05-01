@@ -11,6 +11,7 @@
   - show_author: {String} The setting either show the article author or not. If it's not included it will not show the author by default
   - show_badge: {String} The setting either show the blog badge or not.
   - lazy_load: {Boolean} Image should be lazy loaded. Default: true (optional)
+  - stacked_layout: {Boolean} If true with image — 3/4 portrait image (card--stacked-product), titles below image only.
 
   Usage:
   {% render 'article-card' blog: blog, article: article, show_image: section.settings.show_image %}
@@ -18,9 +19,22 @@
 
 {%- if article and article != empty -%}
   {%- liquid
+    assign stacked_layout = stacked_layout | default: false
+    assign stacked_layout_active = false
+    if stacked_layout and show_image and article.image
+      assign stacked_layout_active = true
+    endif
+
     assign ratio = 1
-    if media_aspect_ratio != null
+    if stacked_layout_active
+      assign ratio = 0.75
+    elsif media_aspect_ratio != null
       assign ratio = media_aspect_ratio
+    endif
+
+    assign mh_for_adapt = media_height
+    if mh_for_adapt == blank and section.settings.media_height != blank
+      assign mh_for_adapt = section.settings.media_height
     endif
   -%}
   <div class="article-card-wrapper card-wrapper underline-links-hover">
@@ -29,7 +43,10 @@
       class="
         card article-card
         card--{{ settings.blog_card_style }}
-        {% if media_height and media_height != 'adapt' %} article-card__image--{{ media_height }}{% endif %}
+        {% if stacked_layout_active %} card--stacked-product card--extend-height{% endif %}
+        {% unless stacked_layout_active %}
+          {% if media_height and media_height != 'adapt' %} article-card__image--{{ media_height }}{% endif %}
+        {% endunless %}
         {% if article.image and show_image %} card--media{% else %} card--text{% endif %}
         {% if settings.blog_card_style == 'card' %} color-{{ settings.blog_card_color_scheme }} gradient{% endif %}
         {% if settings.blog_card_style == 'card' and media_height == nil and article.image == empty or show_image == false %} ratio{% endif %}
@@ -43,10 +60,12 @@
         {%- if show_image == true and article.image -%}
           <div class="article-card__image-wrapper card__media">
             <div
-              class="article-card__image media media--hover-effect"
-              {% if section.settings.media_height == 'adapt' %}
-                style="padding-bottom: {{ 1 | divided_by: article.image.aspect_ratio | times: 100 }}%;"
-              {% endif %}
+              class="article-card__image media{% unless stacked_layout_active %} media--hover-effect{% endunless %}"
+              {% unless stacked_layout_active %}
+                {% if mh_for_adapt == 'adapt' %}
+                  style="padding-bottom: {{ 1 | divided_by: article.image.aspect_ratio | times: 100 }}%;"
+                {% endif %}
+              {% endunless %}
             >
               {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
               <img
