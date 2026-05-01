@@ -1,16 +1,24 @@
 {% comment %}
-  Moment card driven by section-provided values.
+  Moment card driven by section-provided values. Markup aligned with card-product (stacked product) without media--hover-effect.
   @param title {String} Card title
-  @param tag {String} Product tag to filter by
+  @param tag {String} Product tag to filter by (used when card_link blank)
+  @param card_link {String} Optional full URL override for card links
   @param card_image {MediaImage} Card image
   @param section_id {String}
   @param card_index {Number}
   @param lazy_load {Boolean}
   @param skip_styles {Boolean}
+  @param media_aspect_ratio {String} adapt | portrait | square
+  @param image_sizes_column_divisor {Number} For src sizes (e.g. 2 for 2-col grid)
 {% endcomment %}
 {%- liquid
   assign lazy_load = lazy_load | default: true
   assign skip_styles = skip_styles | default: false
+  assign media_aspect_ratio = media_aspect_ratio | default: 'adapt'
+  assign image_sizes_column_divisor = image_sizes_column_divisor | default: 2 | plus: 0
+  if image_sizes_column_divisor < 1
+    assign image_sizes_column_divisor = 2
+  endif
   assign uid = section_id | append: '-moment-' | append: card_index
 
   assign title = title | default: '' | strip
@@ -23,10 +31,26 @@
   endif
 
   assign card_url = routes.all_products_collection_url
-  if filter_tag != blank
+  assign card_link = card_link | default: '' | strip
+  if card_link != blank
+    assign card_url = card_link
+  elsif filter_tag != blank
     assign tag_handle = filter_tag | replace: '_', '-' | handleize
     assign card_url = card_url | append: '/' | append: tag_handle
   endif
+
+  assign ratio = 1
+  if has_image and media_aspect_ratio == 'portrait'
+    assign ratio = 0.8
+  elsif has_image and media_aspect_ratio == 'adapt'
+    assign ratio = card_image.aspect_ratio
+  elsif media_aspect_ratio == 'square'
+    assign ratio = 1
+  endif
+  if ratio == 0 or ratio == null
+    assign ratio = 1
+  endif
+  assign ratio_percent = 1 | divided_by: ratio | times: 100
 -%}
 {%- unless skip_styles -%}
   {{ 'component-card.css' | asset_url | stylesheet_tag }}
@@ -43,14 +67,18 @@
       card--stacked-product
       {% if settings.card_style == 'card' %}color-{{ settings.card_color_scheme }} gradient{% endif %}
     "
-    style="--ratio-percent: 133.333%;"
+    style="--ratio-percent: {{ ratio_percent }}%;"
   >
     <div
       class="card__inner ratio{% if settings.card_style == 'standard' %} color-{{ settings.card_color_scheme }} gradient{% endif %}"
-      style="--ratio-percent: 133.333%;"
+      style="--ratio-percent: {{ ratio_percent }}%;"
     >
       {%- if has_image -%}
-        <div class="card__media color-{{ settings.card_color_scheme }} gradient">
+        <a
+          href="{{ card_url }}"
+          class="card__media full-unstyled-link color-{{ settings.card_color_scheme }} gradient"
+          aria-label="{{ title | escape }}"
+        >
           <div class="media media--transparent">
             {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
             <img
@@ -63,7 +91,7 @@
                 {{ card_image | image_url }} {{ card_image.width }}w
               "
               src="{{ card_image | image_url: width: 533 }}"
-              sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 768px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+              sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: image_sizes_column_divisor }}px, (min-width: 990px) calc((100vw - 130px) / {{ image_sizes_column_divisor }}), (min-width: 640px) calc((100vw - 120px) / {{ image_sizes_column_divisor }}), calc(100vw - 35px)"
               alt="{{ card_image.alt | default: title | escape }}"
               class="motion-reduce"
               {% if lazy_load %}
@@ -74,7 +102,7 @@
             >
             {% comment %}theme-check-enable ImgLazyLoading{% endcomment %}
           </div>
-        </div>
+        </a>
       {%- else -%}
         <div class="card__media color-{{ settings.card_color_scheme }} gradient">
           <div class="media media--transparent">

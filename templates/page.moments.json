@@ -12,29 +12,53 @@
     "hero": {
       "type": "page-breadcrumbs",
       "settings": {
+        "heading": "",
         "color_scheme": "scheme-1"
+      }
+    },
+    "moments_intro": {
+      "type": "row-content-card-section",
+      "settings": {
+        "heading": "MOMENTS",
+        "body": "At SheyeOladejo, We believe that fashion is a powerful tool of self-expression, capable of telling stories and creating amazing connections. That is why we are the pinnacle of sophistication and personalised luxury. \n\nEstablished in 2016, Our brand is dedicated to creating breathtaking bridal and bespoke garments that celebrate individuality and timeless elegance. We are known for our attention to details, innovative use of fabrics and our commitment to craftsmanship.",
+        "attribution": "",
+        "reverse_layout": false,
+        "image": "shopify://shop_images/ejire-2-professional-2.webp",
+        "color_scheme": "scheme-1",
+        "padding_top": 64,
+        "padding_bottom": 64
       }
     },
     "moments_grid": {
       "type": "moments-grid",
+      "blocks": {
+        "moment_card_r7WHNt": {
+          "type": "moment_card",
+          "settings": {
+            "image": "shopify://shop_images/moments-6.webp",
+            "title": "Moment",
+            "tag": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "moment_card_r7WHNt"
+      ],
       "settings": {
-        "moment_field_keys": "baddie,wedding_dresses,dinner_date",
-        "heading": "",
+        "heading": "Moments",
+        "heading_size": "h1",
         "subheading": "",
-        "heading_alignment": "center",
-        "max_tags": 24,
-        "show_view_more": true,
-        "view_more_label": "View More",
-        "view_more_link": "",
-        "view_more_style": "solid",
+        "image_ratio": "adapt",
         "color_scheme": "scheme-1",
-        "padding_top": 100,
-        "padding_bottom": 100
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     }
   },
   "order": [
     "hero",
+    "moments_intro",
     "moments_grid"
   ]
 }

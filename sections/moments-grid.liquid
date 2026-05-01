@@ -2,184 +2,177 @@
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-moment-card.css' | asset_url | stylesheet_tag }}
 
+{%- liquid
+  assign mg_section_id = section.id
+  assign mg_color_scheme = section.settings.color_scheme | default: 'scheme-1'
+  assign mg_pad_top = section.settings.padding_top | default: 36
+  assign mg_pad_bottom = section.settings.padding_bottom | default: 36
+  assign mg_heading_size = section.settings.heading_size | default: 'h1'
+-%}
+
 {%- style -%}
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  .section-{{ mg_section_id }}-padding {
+    padding-top: {{ mg_pad_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ mg_pad_bottom | times: 0.75 | round: 0 }}px;
   }
 
   @media screen and (min-width: 768px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
+    .section-{{ mg_section_id }}-padding {
+      padding-top: {{ mg_pad_top }}px;
+      padding-bottom: {{ mg_pad_bottom }}px;
     }
   }
 
-  #shopify-section-{{ section.id }} .product-grid {
-    justify-content: flex-start;
+  #collection-{{ mg_section_id }} .collection__title {
+    text-align: center;
+    text-transform: uppercase;
   }
 
-  @media screen and (min-width: 768px) {
-    #shopify-section-{{ section.id }} .product-grid {
-      justify-content: center;
+  /*
+   Moments grid: real CSS Grid (not theme flex .grid) so orphans stay one column wide.
+   <640px: 1 column. ≥640px: 2 equal columns; last row with a single item does not stretch.
+  */
+  #collection-{{ mg_section_id }} .moments-grid__list.grid {
+    display: grid;
+    width: 100%;
+    margin-bottom: 2rem;
+    padding: 0;
+    list-style: none;
+    flex-wrap: unset;
+    column-gap: var(--grid-mobile-horizontal-spacing);
+    row-gap: var(--grid-mobile-vertical-spacing);
+    grid-template-columns: minmax(0, 1fr);
+    justify-content: initial;
+  }
+
+  #collection-{{ mg_section_id }} .moments-grid__list.grid:last-child {
+    margin-bottom: 0;
+  }
+
+  @media screen and (min-width: 640px) {
+    #collection-{{ mg_section_id }} .moments-grid__list.grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: var(--grid-desktop-horizontal-spacing);
+      row-gap: var(--grid-desktop-vertical-spacing);
     }
   }
 
-  #shopify-section-{{ section.id }} .card__heading,
-  #shopify-section-{{ section.id }} .card__heading a {
+  #collection-{{ mg_section_id }} .moments-grid__list .grid__item {
+    width: 100%;
+    max-width: none;
+    flex-grow: 0;
+    flex-shrink: 0;
+    min-width: 0;
+  }
+
+  #collection-{{ mg_section_id }} .card__heading,
+  #collection-{{ mg_section_id }} .card__heading a {
     text-transform: uppercase;
     text-align: left;
   }
 
-  @media screen and (min-width: 768px) {
-    #shopify-section-{{ section.id }} .card__heading,
-    #shopify-section-{{ section.id }} .card__heading a {
+  @media screen and (min-width: 640px) {
+    #collection-{{ mg_section_id }} .card__heading,
+    #collection-{{ mg_section_id }} .card__heading a {
       text-align: center;
     }
   }
 
-  #shopify-section-{{ section.id }} .product-grid .ratio {
-    --ratio-percent: 133.333% !important;
-  }
-
-  #shopify-section-{{ section.id }} .moments-grid__header {
-    margin-bottom: 2rem;
-  }
-
-  #shopify-section-{{ section.id }} .moments-grid__header.center {
-    text-align: center;
-  }
-
-  #shopify-section-{{ section.id }} .moments-grid__title {
-    margin: 0 0 0.75rem;
-    font-family: var(--font-heading-family);
-    font-size: clamp(1.75rem, 4vw, 2.5rem);
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-
-  #shopify-section-{{ section.id }} .moments-grid__subheading {
-    margin: 0;
-    max-width: 42rem;
-    margin-inline: auto;
-    line-height: 1.6;
-    color: rgba(var(--color-foreground), 0.8);
-  }
-
-  #shopify-section-{{ section.id }} .moments-grid__header:not(.center) .moments-grid__subheading {
-    margin-inline: 0;
-  }
-
-  #shopify-section-{{ section.id }} .moments-grid__empty {
+  #collection-{{ mg_section_id }} .moments-grid__empty {
     padding: 3rem 1rem;
     color: rgba(var(--color-foreground), 0.75);
   }
 {%- endstyle -%}
 
-<div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}">
-  <div class="page-width">
-    {%- if section.settings.heading != blank -%}
-      <header class="moments-grid__header{% if section.settings.heading_alignment == 'center' %} center{% endif %}">
-        <h1 class="moments-grid__title">{{ section.settings.heading | escape }}</h1>
-        {%- if section.settings.subheading != blank -%}
-          <p class="moments-grid__subheading">{{ section.settings.subheading | escape }}</p>
+<div class="color-{{ mg_color_scheme }} isolate gradient">
+  <div
+    class="collection section-{{ mg_section_id }}-padding"
+    id="collection-{{ mg_section_id }}"
+    data-id="{{ mg_section_id }}"
+  >
+    {%- if section.settings.heading != blank or section.settings.subheading != blank -%}
+      <div class="collection__title title-wrapper title-wrapper--no-top-margin page-width">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="title inline-richtext {{ mg_heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+            {{ section.settings.heading | escape }}
+          </h2>
         {%- endif -%}
-      </header>
+        {%- if section.settings.subheading != blank -%}
+          <div class="collection__description body rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+            {{ section.settings.subheading | escape }}
+          </div>
+        {%- endif -%}
+      </div>
     {%- endif -%}
 
-    {%- liquid
-      assign moments_entry = metaobjects.moments_tag.moments_tag
-      assign configured_field_keys = section.settings.moment_field_keys | default: ''
-      assign field_keys = configured_field_keys | split: ','
-      assign rendered_cards = 0
-    -%}
-
-    {%- if moments_entry == blank -%}
-      <div class="moments-grid__empty center">
-        <p>No moments entry found. Create an entry with handle "moments_tag".</p>
+    {%- if section.blocks.size == 0 -%}
+      <div class="moments-grid__empty center page-width">
+        <p>Add moment cards in the theme editor (“Add block”).</p>
       </div>
     {%- else -%}
       <div
-        class="product-grid-container{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+        class="product-grid-container{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %} page-width"
         {% if settings.animations_reveal_on_scroll %}
           data-cascade
         {% endif %}
       >
-        <div class="collection">
-          <ul
-            id="product-grid"
-            data-id="{{ section.id }}"
-            class="
-              grid product-grid contains-card contains-card--product{% if settings.card_style == 'standard' %} contains-card--standard{% endif %} product-grid--alternating-3-2
-              {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}
-            "
-            role="list"
-          >
-            {%- for key in field_keys -%}
-              {%- if rendered_cards >= section.settings.max_tags -%}
-                {%- break -%}
-              {%- endif -%}
+        <ul
+          id="Slider-{{ mg_section_id }}"
+          data-id="{{ mg_section_id }}"
+          class="
+            grid product-grid moments-grid__list contains-card contains-card--product{% if settings.card_style == 'standard' %} contains-card--standard{% endif %}
+            {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}
+          "
+          role="list"
+        >
+          {%- assign moment_card_index = 0 -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type != 'moment_card' -%}
+              {%- continue -%}
+            {%- endif -%}
 
-              {%- assign field_key = key | strip -%}
-              {%- if field_key == blank -%}
-                {%- continue -%}
-              {%- endif -%}
+            {%- assign moment_card_index = moment_card_index | plus: 1 -%}
+            {%- assign card_image = block.settings.image -%}
+            {%- assign title_setting = block.settings.title | strip -%}
+            {%- assign tag_setting = block.settings.tag | strip -%}
+            {%- assign link_setting = block.settings.link | strip -%}
 
-              {%- assign field = moments_entry[field_key] -%}
-              {%- assign card_image = field.value -%}
-              {%- if card_image == blank -%}
-                {%- continue -%}
-              {%- endif -%}
+            {%- assign card_title = title_setting -%}
+            {%- if card_title == blank and tag_setting != blank -%}
+              {%- assign card_title = tag_setting | replace: '_', ' ' | replace: '-', ' ' -%}
+            {%- elsif card_title == blank -%}
+              {%- assign card_title = 'Moment' -%}
+            {%- endif -%}
 
-              {%- assign rendered_cards = rendered_cards | plus: 1 -%}
-              {%- assign lazy_load = false -%}
-              {%- if rendered_cards > 2 -%}
-                {%- assign lazy_load = true -%}
-              {%- endif -%}
-              {%- assign cycle_index = rendered_cards | minus: 1 | modulo: 5 -%}
-              {%- if cycle_index == 3 or cycle_index == 4 -%}
-                {%- assign span_class = 'grid__item--span-3' -%}
-              {%- else -%}
-                {%- assign span_class = 'grid__item--span-2' -%}
-              {%- endif -%}
-              {%- assign title = field_key | replace: '_', ' ' | replace: '-', ' ' -%}
-              <li
-                class="grid__item {{ span_class }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-                {% if settings.animations_reveal_on_scroll %}
-                  data-cascade
-                  style="--animation-order: {{ rendered_cards }};"
-                {% endif %}
-              >
-                {% render 'moment-tag-card',
-                  title: title,
-                  tag: field_key,
-                  card_image: card_image,
-                  section_id: section.id,
-                  card_index: rendered_cards,
-                  lazy_load: lazy_load,
-                  skip_styles: true
-                %}
-              </li>
-            {%- endfor -%}
-          </ul>
-        </div>
+            {%- assign lazy_load = false -%}
+            {%- if moment_card_index > 2 -%}
+              {%- assign lazy_load = true -%}
+            {%- endif -%}
+
+            <li
+              class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+              {{ block.shopify_attributes }}
+              {% if settings.animations_reveal_on_scroll %}
+                data-cascade
+                style="--animation-order: {{ moment_card_index }};"
+              {% endif %}
+            >
+              {% render 'moment-tag-card',
+                title: card_title,
+                tag: tag_setting,
+                card_link: link_setting,
+                card_image: card_image,
+                section_id: mg_section_id,
+                card_index: moment_card_index,
+                lazy_load: lazy_load,
+                skip_styles: true,
+                media_aspect_ratio: section.settings.image_ratio,
+                image_sizes_column_divisor: 2
+              %}
+            </li>
+          {%- endfor -%}
+        </ul>
       </div>
-      {%- if rendered_cards == 0 -%}
-        <div class="moments-grid__empty center">
-          <p>No valid image fields found. Add keys in section setting "Moment field keys".</p>
-        </div>
-      {%- elsif section.settings.show_view_more -%}
-        <div class="center collection__view-all{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-          <a
-            href="{{ section.settings.view_more_link | default: '/collections/all' }}"
-            class="{% if section.settings.view_more_style == 'link' %}link underlined-link{% elsif section.settings.view_more_style == 'solid' %}button{% else %}button button--secondary{% endif %}"
-            aria-label="{{ section.settings.view_more_label | default: 'View all' | escape }}"
-          >
-            {{ section.settings.view_more_label | default: 'View all' | escape }}
-          </a>
-        </div>
-      {%- endif -%}
     {%- endif -%}
   </div>
 </div>
@@ -193,16 +186,22 @@
   "settings": [
     {
       "type": "text",
-      "id": "moment_field_keys",
-      "label": "Moment field keys",
-      "default": "baddie,wedding_dresses,dinner_date",
-      "info": "Comma-separated metaobject field keys from entry handle 'moments_tag'. Example: baddie,wedding_dress"
-    },
-    {
-      "type": "text",
       "id": "heading",
       "label": "Heading",
       "default": "Moments"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" },
+        { "value": "hxl", "label": "Extra large" },
+        { "value": "hxxl", "label": "Extra extra large" }
+      ],
+      "default": "h1",
+      "label": "Heading size"
     },
     {
       "type": "textarea",
@@ -211,55 +210,19 @@
     },
     {
       "type": "select",
-      "id": "heading_alignment",
-      "label": "Heading alignment",
+      "id": "image_ratio",
       "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" }
+        { "value": "adapt", "label": "Adapt to image" },
+        { "value": "portrait", "label": "Portrait" },
+        { "value": "square", "label": "Square" }
       ],
-      "default": "center"
+      "default": "adapt",
+      "label": "Image ratio",
+      "info": "Matches featured collection card image behavior."
     },
     {
-      "type": "range",
-      "id": "max_tags",
-      "min": 4,
-      "max": 48,
-      "step": 4,
-      "default": 24,
-      "label": "Maximum tag cards",
-      "info": "Limits how many tag cards are shown."
-    },
-    {
-      "type": "header",
-      "content": "View all button"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_view_more",
-      "label": "Show view all button",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "view_more_label",
-      "label": "Button label",
-      "default": "View More"
-    },
-    {
-      "type": "url",
-      "id": "view_more_link",
-      "label": "Button link"
-    },
-    {
-      "type": "select",
-      "id": "view_more_style",
-      "label": "Button style",
-      "options": [
-        { "value": "link", "label": "Text link" },
-        { "value": "solid", "label": "Solid button" },
-        { "value": "outline", "label": "Outline button" }
-      ],
-      "default": "solid"
+      "type": "paragraph",
+      "content": "Add cards with “Add block”. Two columns from 640px width; one column below. A single item on the last row stays half-width."
     },
     {
       "type": "color_scheme",
@@ -292,6 +255,38 @@
       "default": 36
     }
   ],
+  "blocks": [
+    {
+      "type": "moment_card",
+      "name": "Moment card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Moment"
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Product tag",
+          "info": "Optional. Builds a link to the all-products collection filtered by this tag (e.g. wedding_dresses). Ignored if “Link” is set."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Optional. Use a custom URL instead of the tag-based collection link."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 48,
   "presets": [
     {
       "name": "Moments grid"
