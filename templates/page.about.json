@@ -28,15 +28,16 @@
       }
     },
     "about_brand": {
-      "type": "about-brand",
+      "type": "row-content-card-section",
       "settings": {
         "heading": "ABOUT THE FOUNDER",
-        "quote": "With a background in computer engineering from Obafemi Awolowo University and an MBA in view from Lagos Business School, Oluwaseye’s journey into fashion grew from a lifelong love for creation, inspired by making handmade pieces and a desire for unique styles.\n\nThis passion led to SheyeOladejo and Scqueeze, celebrating everyday elegance. Inspired by travel and nature, her work has earned features and showcases, while she remains committed to helping women feel confident, seen, and beautiful.",
+        "body": "With a background in computer engineering from Obafemi Awolowo University and an MBA in view from Lagos Business School, Oluwaseye’s journey into fashion grew from a lifelong love for creation, inspired by making handmade pieces and a desire for unique styles.\n\nThis passion led to SheyeOladejo and Scqueeze, celebrating everyday elegance. Inspired by travel and nature, her work has earned features and showcases, while she remains committed to helping women feel confident, seen, and beautiful.",
         "attribution": "OluwaSheye Oladejo — Founder of SheyeOladejo",
         "image": "shopify://shop_images/ejire-2-professional-17.webp",
         "color_scheme": "scheme-1",
         "padding_top": 64,
-        "padding_bottom": 64
+        "padding_bottom": 64,
+        "reverse_layout": true
       }
     },
     "about_products": {
@@ -197,7 +198,7 @@
         "padding_top": 64,
         "padding_bottom": 64
       }
-    },
+    }
   },
   "order": [
     "hero",
@@ -205,6 +206,6 @@
     "about_brand",
     "featured_infinite_marquee",
     "about_products",
-    "about_values",
+    "about_values"
   ]
 }

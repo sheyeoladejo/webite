@@ -1,4 +1,4 @@
-/* Layout primitives for row content card; loaded via assets/row-content-card.css */
+/* Layout primitives for row content card — linked via stylesheet_tag next to row-content-card.css */
 
 .row-content-card-section,
 .about-founder {
@@ -31,6 +31,7 @@
 @media screen and (min-width: 990px) {
 	.about-founder__grid {
 		flex-wrap: nowrap;
+		flex-direction: row;
 		gap: 4rem;
 		align-items: center;
 	}
@@ -38,21 +39,16 @@
 	.about-founder__media {
 		flex: 0 1 50%;
 		max-width: 50%;
-		order: 1;
 	}
 
 	.about-founder__text {
 		flex: 0 1 50%;
 		max-width: 50%;
-		order: 2;
 	}
 
-	.about-founder__grid.about-founder__grid--reverse .about-founder__media {
-		order: 2;
-	}
-
-	.about-founder__grid.about-founder__grid--reverse .about-founder__text {
-		order: 1;
+	/* row-reverse swaps columns without relying on `order` (avoids cascade issues on dense pages). */
+	.about-founder__grid.about-founder__grid--reverse {
+		flex-direction: row-reverse;
 	}
 }
 

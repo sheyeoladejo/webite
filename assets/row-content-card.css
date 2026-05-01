@@ -1,10 +1,20 @@
 /*!
  * Row content card — image + title + description (+ optional full-row link).
- * Base layout/typography live in section-about-founder-shared.css (imported below).
+ * Base layout lives in section-about-founder-shared.css (linked from the section, not @import —
+ * Shopify CDN stylesheet URLs often break sibling @import resolution).
  */
-@import url("section-about-founder-shared.css");
 
 /* Same as .page-width (padding, margin) but cap max width at 1440px */
 .row-content-card-section .row-content-card.page-width {
 	max-width: 1440px;
+}
+
+.row-content-card__attribution {
+	display: block;
+	margin-top: 1.25rem;
+	font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+	line-height: 1.4;
+	color: rgba(var(--color-foreground), 0.7);
+	font-style: normal;
+	text-align: center;
 }

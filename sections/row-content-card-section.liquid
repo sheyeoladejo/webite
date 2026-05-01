@@ -1,3 +1,4 @@
+{{ 'section-about-founder-shared.css' | asset_url | stylesheet_tag }}
 {{ 'row-content-card.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
@@ -14,14 +15,15 @@
 {%- endstyle -%}
 
 <section
-  class="row-content-card-section row-content-card-section-{{ section.id }} color-{{ section.settings.color_scheme }} gradient"
+  class="about-founder row-content-card-section row-content-card-section-{{ section.id }} color-{{ section.settings.color_scheme }} gradient"
   aria-labelledby="row-content-card-heading-{{ section.id }}"
 >
   {% render 'row-content-card',
     image: section.settings.image,
     heading: section.settings.heading,
     body: section.settings.body,
-    reverse_layout: false,
+    attribution: section.settings.attribution,
+    reverse_layout: section.settings.reverse_layout,
     unique_id: section.id
   %}
 </section>
@@ -44,6 +46,17 @@
       "id": "body",
       "label": "Body text",
       "default": "OluwaSheye Oladejo founded SheyeOladejo with a vision of creating a more equitable future, where craftsmanship, personal connection, and sustainability are at the heart of every piece.\n\nSince its founding, we have been dedicated to offering exceptional quality and a personalized experience for every client.\n\nDiscover more about our story and values."
+    },
+    {
+      "type": "text",
+      "id": "attribution",
+      "label": "Attribution"
+    },
+    {
+      "type": "checkbox",
+      "id": "reverse_layout",
+      "label": "Reverse layout",
+      "default": false
     },
     {
       "type": "image_picker",

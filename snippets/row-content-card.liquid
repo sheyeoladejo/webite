@@ -4,6 +4,7 @@
   - image: image object (optional)
   - heading: string (optional)
   - body: string (optional; newline-separated paragraphs)
+  - attribution: string (optional)
   - link: URL string (optional; wraps row in a single link when set)
   - reverse_layout: boolean (optional)
   - unique_id: string (required for unique heading id)
@@ -50,6 +51,9 @@
             {%- endif -%}
           {%- endfor -%}
         </div>
+      {%- endif -%}
+      {%- if attribution != blank -%}
+        <cite class="row-content-card__attribution">{{ attribution | escape }}</cite>
       {%- endif -%}
     </div>
   </div>
