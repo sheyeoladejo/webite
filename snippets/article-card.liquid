@@ -11,7 +11,7 @@
   - show_author: {String} The setting either show the article author or not. If it's not included it will not show the author by default
   - show_badge: {String} The setting either show the blog badge or not.
   - lazy_load: {Boolean} Image should be lazy loaded. Default: true (optional)
-  - stacked_layout: {Boolean} If true with image — 3/4 portrait image (card--stacked-product), titles below image only.
+  - stacked_layout: {Boolean} If true (e.g. main blog listing) — optional 3:4 image when featured image exists; entire card wraps in one link (no nested title links).
 
   Usage:
   {% render 'article-card' blog: blog, article: article, show_image: section.settings.show_image %}
@@ -21,8 +21,12 @@
   {%- liquid
     assign stacked_layout = stacked_layout | default: false
     assign stacked_layout_active = false
-    if stacked_layout and show_image and article.image
-      assign stacked_layout_active = true
+    assign stacked_card_block_link = false
+    if stacked_layout
+      assign stacked_card_block_link = true
+      if show_image and article.image
+        assign stacked_layout_active = true
+      endif
     endif
 
     assign ratio = 1
@@ -39,20 +43,38 @@
   -%}
   <div class="article-card-wrapper card-wrapper underline-links-hover">
     {% comment %} <article aria-labelledby="Article-{{ article.id }}"> {% endcomment %}
-    <div
-      class="
-        card article-card
-        card--{{ settings.blog_card_style }}
-        {% if stacked_layout_active %} card--stacked-product card--extend-height{% endif %}
-        {% unless stacked_layout_active %}
-          {% if media_height and media_height != 'adapt' %} article-card__image--{{ media_height }}{% endif %}
-        {% endunless %}
-        {% if article.image and show_image %} card--media{% else %} card--text{% endif %}
-        {% if settings.blog_card_style == 'card' %} color-{{ settings.blog_card_color_scheme }} gradient{% endif %}
-        {% if settings.blog_card_style == 'card' and media_height == nil and article.image == empty or show_image == false %} ratio{% endif %}
-      "
-      style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
-    >
+    {% if stacked_card_block_link %}
+      <a
+        href="{{ article.url }}"
+        class="
+          card article-card article-card--block-link
+          card--{{ settings.blog_card_style }}
+          {% if stacked_layout_active %} card--stacked-product card--extend-height{% endif %}
+          {% unless stacked_layout_active %}
+            {% if media_height and media_height != 'adapt' %} article-card__image--{{ media_height }}{% endif %}
+          {% endunless %}
+          {% if article.image and show_image %} card--media{% else %} card--text{% endif %}
+          {% if settings.blog_card_style == 'card' %} color-{{ settings.blog_card_color_scheme }} gradient{% endif %}
+          {% if settings.blog_card_style == 'card' and media_height == nil and article.image == empty or show_image == false %} ratio{% endif %}
+        "
+        style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
+      >
+    {% else %}
+      <div
+        class="
+          card article-card
+          card--{{ settings.blog_card_style }}
+          {% if stacked_layout_active %} card--stacked-product card--extend-height{% endif %}
+          {% unless stacked_layout_active %}
+            {% if media_height and media_height != 'adapt' %} article-card__image--{{ media_height }}{% endif %}
+          {% endunless %}
+          {% if article.image and show_image %} card--media{% else %} card--text{% endif %}
+          {% if settings.blog_card_style == 'card' %} color-{{ settings.blog_card_color_scheme }} gradient{% endif %}
+          {% if settings.blog_card_style == 'card' and media_height == nil and article.image == empty or show_image == false %} ratio{% endif %}
+        "
+        style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
+      >
+    {% endif %}
       <div
         class="card__inner {% if settings.blog_card_style == 'standard' %} color-{{ settings.blog_card_color_scheme }} gradient{% endif %}{% if article.image and show_image or settings.blog_card_style == 'standard' %} ratio{% endif %}"
         style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
@@ -95,9 +117,13 @@
         <div class="card__content">
           <div class="card__information">
             <h3 class="card__heading{% if show_excerpt %} h2{% endif %}">
-              <a href="{{ article.url }}" class="full-unstyled-link">
-                {{ article.title | truncate: 50 | escape }}
-              </a>
+              {%- unless stacked_card_block_link -%}
+                <a href="{{ article.url }}" class="full-unstyled-link">
+                  {{ article.title | truncate: 50 | escape }}
+                </a>
+              {%- else -%}
+                <span>{{ article.title | truncate: 50 | escape }}</span>
+              {%- endunless -%}
             </h3>
             <div class="article-card__info caption-with-letter-spacing h5">
               {%- if show_date -%}
@@ -134,9 +160,13 @@
       <div class="card__content">
         <div class="card__information">
           <h3 class="card__heading{% if show_excerpt %} h2{% endif %}">
-            <a href="{{ article.url }}" class="full-unstyled-link">
-              {{ article.title | truncate: 50 | escape }}
-            </a>
+            {%- unless stacked_card_block_link -%}
+              <a href="{{ article.url }}" class="full-unstyled-link">
+                {{ article.title | truncate: 50 | escape }}
+              </a>
+            {%- else -%}
+              <span>{{ article.title | truncate: 50 | escape }}</span>
+            {%- endunless -%}
           </h3>
           <div class="article-card__info caption-with-letter-spacing h5">
             {%- if show_date -%}
@@ -169,6 +199,10 @@
           </div>
         {%- endif -%}
       </div>
-    </div>
+    {% if stacked_card_block_link %}
+      </a>
+    {% else %}
+      </div>
+    {% endif %}
   </div>
 {%- endif -%}

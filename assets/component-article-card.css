@@ -73,6 +73,11 @@
 	margin-top: auto;
 }
 
+.card.article-card.article-card--block-link {
+	color: inherit;
+	text-decoration: none;
+}
+
 .article-card__excerpt {
 	width: 100%;
 	margin-top: 1.2rem;

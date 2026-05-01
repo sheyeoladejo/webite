@@ -9,6 +9,13 @@
  */
 {
   "sections": {
+    "hero": {
+      "type": "page-breadcrumbs",
+      "settings": {
+        "heading": "",
+        "color_scheme": "scheme-1"
+      }
+    },
     "main": {
       "type": "main-article",
       "blocks": {
@@ -42,10 +49,14 @@
         "share",
         "content"
       ],
-      "settings": {}
+      "settings": {
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
     }
   },
   "order": [
+    "hero",
     "main"
   ]
 }
