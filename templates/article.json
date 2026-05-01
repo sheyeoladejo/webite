@@ -50,10 +50,7 @@
         "share",
         "content"
       ],
-      "settings": {
-        "padding_top": 64,
-        "padding_bottom": 64
-      }
+      "settings": {}
     }
   },
   "order": [
