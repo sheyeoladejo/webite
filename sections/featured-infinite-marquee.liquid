@@ -51,14 +51,35 @@
       >
         {%- for pass in (1..2) -%}
           {%- for block in section.blocks -%}
+            {%- liquid
+              assign slide_url = block.settings.slide_url | strip
+              assign slide_has_link = false
+              if slide_url != blank
+                assign slide_has_link = true
+              endif
+              assign link_label_raw = block.settings.link_label | strip
+              assign link_show_label = false
+              if slide_has_link
+                assign link_show_label = true
+              endif
+            -%}
             <article
-              class="featured-infinite-marquee__slide"
+              class="featured-infinite-marquee__slide{% if slide_has_link %} featured-infinite-marquee__slide--linked{% endif %}"
               {% if pass == 1 %}
                 {{ block.shopify_attributes }}
               {% else %}
                 aria-hidden="true"
               {% endif %}
             >
+              {%- if slide_has_link -%}
+                <a
+                  href="{{ slide_url }}"
+                  class="featured-infinite-marquee__slide-link"
+                  {% if pass != 1 %}
+                    tabindex="-1"
+                  {% endif %}
+                >
+              {%- endif -%}
               <div class="featured-infinite-marquee__body">
                 <div class="featured-infinite-marquee__quote rte" lang="{{ request.locale.iso_code | default: 'en' }}">
                   <span class="featured-infinite-marquee__q-mark" aria-hidden="true">“</span>
@@ -66,6 +87,15 @@
                   <span class="featured-infinite-marquee__q-mark" aria-hidden="true">”</span>
                 </div>
               </div>
+              {%- if link_show_label and link_label_raw != blank -%}
+                <span class="featured-infinite-marquee__view-more">
+                  {{- link_label_raw | escape -}}
+                </span>
+              {%- elsif link_show_label -%}
+                <span class="featured-infinite-marquee__view-more">
+                  {{- 'sections.featured_infinite_marquee.view_more' | t -}}
+                </span>
+              {%- endif -%}
               {%- liquid
                 assign show_footer = false
                 if block.settings.name != blank or block.settings.reviewer_image != blank or block.settings.business_logo != blank
@@ -111,6 +141,9 @@
                     </div>
                   </div>
                 </div>
+              {%- endif -%}
+              {%- if slide_has_link -%}
+                </a>
               {%- endif -%}
             </article>
           {%- endfor -%}
@@ -281,6 +314,18 @@
           "id": "business_logo",
           "label": "Business / company logo",
           "info": "Optional logo of the business associated with the review"
+        },
+        {
+          "type": "url",
+          "id": "slide_url",
+          "label": "Link",
+          "info": "Makes the whole slide clickable. A “View more” line appears when set."
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Link label",
+          "info": "Shown when Link is set. Leave empty to use the theme default (“View more”)."
         }
       ]
     }
