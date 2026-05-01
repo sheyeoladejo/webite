@@ -62,6 +62,10 @@
     {%- else -%}
       <span>{{ breadcrumb_collection_title | escape }}</span>
     {%- endif -%}
+  {%- elsif template_type == 'article' and blog != blank and article != blank -%}
+    <a href="{{ blog.url }}">{{ blog.title | escape }}</a>
+    <span aria-hidden="true"> / </span>
+    <span>{{ article.title | escape }}</span>
   {%- elsif template_type == 'blog' and blog != blank -%}
     <span>{{ blog.title | escape }}</span>
   {%- elsif page != blank -%}

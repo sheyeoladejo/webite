@@ -13,6 +13,8 @@
     assign breadcrumb_template_type = 'product'
   elsif collection != blank
     assign breadcrumb_template_type = 'collection'
+  elsif article != blank and blog != blank
+    assign breadcrumb_template_type = 'article'
   elsif blog != blank
     assign breadcrumb_template_type = 'blog'
   elsif page != blank
@@ -23,6 +25,8 @@
   if resolved_heading == blank
     if collection != blank
       assign resolved_heading = collection.title
+    elsif article != blank
+      assign resolved_heading = article.title
     elsif blog != blank
       assign resolved_heading = blog.title
     elsif page != blank
@@ -43,6 +47,7 @@
       collection: collection,
       page: page,
       blog: blog,
+      article: article,
       current_title: resolved_heading,
       class: 'breadcrumbs breadcrumbs--hero-secondary'
     %}
