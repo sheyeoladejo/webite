@@ -732,9 +732,12 @@
 
 .card-hover-info__price--on-sale {
 	display: flex;
-	flex-direction: column;
 	align-items: stretch;
 	gap: 0.3rem;
+}
+
+.card-hover-info__sale-price {
+	font-weight: 700;
 }
 
 .card-hover-info__row2 {
@@ -817,6 +820,7 @@
 
 .card-hover-info__price {
 	margin: 0.2rem 0 0;
+	font-weight: 600;
 }
 
 .card-hover-info__colors {

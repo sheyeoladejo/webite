@@ -392,23 +392,22 @@
           </h3>
           {%- if card_line_show_compare -%}
             <p class="card-hover-info__price card-hover-info__price--on-sale">
-              <span class="card-hover-info__row1">
-                {{ card_product.title | upcase -}}
-                <span class="card__heading-sep" aria-hidden="true"> - </span>
-                <span class="visually-hidden visually-hidden--inline">
-                  {{- 'products.product.price.regular_price' | t -}}
-                </span>
-                <s class="card__price-compare card__price-compare--in-title">{{ card_line_compare_fmt }}</s>
+              <span class="visually-hidden visually-hidden--inline">
+                {{- 'products.product.price.regular_price' | t -}}
               </span>
-              <span class="card-hover-info__row2">
-                <span class="visually-hidden visually-hidden--inline">
-                  {{- 'products.product.price.sale_price' | t -}}
-                </span>
-                {{- card_line_price_fmt -}}
+              <span
+                class="card__price-compare card__price-compare--in-title"
+              >
+                {{ card_line_compare_fmt }}
               </span>
+              <span class="card__heading-sep" aria-hidden="true"> - </span>
+              <span class="visually-hidden visually-hidden--inline">
+                {{- 'products.product.price.sale_price' | t -}}
+              </span>
+              <span class="card-hover-info__sale-price color-foreground">{{- card_line_price_fmt -}}</span>
             </p>
           {%- else -%}
-            <p class="card-hover-info__price">{{ card_line_price_fmt }}</p>
+            <p class="card-hover-info__price color-foreground">{{ card_line_price_fmt }}</p>
           {%- endif -%}
           {%- if available_color_count > 1 -%}
             {%- assign hover_color_names = available_color_names_string | split: '||' -%}
