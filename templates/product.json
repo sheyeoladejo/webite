@@ -51,32 +51,9 @@
 						"custom_liquid": "{% render 'product-meta-links' %}"
 					}
 				},
-				"details_description": {
-					"type": "collapsible_tab",
-					"settings": {
-						"heading": "Product Description",
-						"icon": "none",
-						"content": "",
-						"page": ""
-					}
-				},
-				"details_care": {
-					"type": "collapsible_tab",
-					"settings": {
-						"heading": "Care Instructions",
-						"icon": "none",
-						"content": "<p>Use a soft, dry cloth to wipe clean. Store in a cool, dry place away from direct sunlight.</p>",
-						"page": ""
-					}
-				},
-				"details_shipping": {
-					"type": "collapsible_tab",
-					"settings": {
-						"heading": "Shipping & Delivery",
-						"icon": "none",
-						"content": "<p>Orders are processed within 1–2 business days. Standard delivery timelines apply based on your location.</p>",
-						"page": ""
-					}
+				"product_details": {
+					"type": "product_info_accordions",
+					"settings": {}
 				}
 			},
 			"block_order": [
@@ -87,9 +64,7 @@
 				"quantity_selector",
 				"buy_buttons",
 				"meta_links",
-				"details_description",
-				"details_care",
-				"details_shipping"
+				"product_details"
 			],
 			"settings": {
 				"enable_sticky_info": true,

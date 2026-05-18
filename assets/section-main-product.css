@@ -346,7 +346,7 @@ a.product__text {
 	border-bottom: 0;
 }
 
-.product__accordion.accordion:last-of-type {
+.product__accordion.accordion {
 	border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.15);
 }
 
@@ -808,8 +808,13 @@ a.product__text {
 }
 
 .restock-rocket-preorder-description{
-	background-color: (var(--color-foreground)) !important;
+	background-color: transparent !important;
+	color: rgb(var(--color-foreground)) !important;
 	padding: 0 !important;
+}
+
+.restock-rocket-preorder-description .preorder-detail-text{
+	color: rgb(var(--color-foreground)) !important;
 }
 
 .restock-rocket-preorder-description .preorder-detail-icon {

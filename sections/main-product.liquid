@@ -225,92 +225,16 @@
                 {{ block.settings.custom_liquid }}
               {%- when 'collapsible_tab' -%}
                 {%- liquid
-                  assign accordion_heading = block.settings.heading | strip | downcase
-                  assign accordion_content = block.settings.content
-                  assign accordion_page_content = block.settings.page.content
-                  assign show_collapsible_tab = true
-                  assign render_split_care_storage = false
-
-                  assign care_instructions_metafield = product.metafields.custom.care_instructions
-                  if care_instructions_metafield == blank
-                    assign care_instructions_metafield = product.metafields.custom.care_instruction
-                  endif
-
-                  assign storage_metafield = product.metafields.custom.storage
-                  if storage_metafield == blank
-                    assign storage_metafield = product.metafields.custom.storage_instructions
-                  endif
-
-                  if accordion_content == blank and block.settings.heading == 'Product Description'
-                    assign accordion_content = product.description
-                  endif
-
-                  if accordion_heading contains 'care' and accordion_heading contains 'storage'
-                    assign render_split_care_storage = true
-                    assign show_collapsible_tab = false
-                  elsif accordion_heading contains 'care'
-                    if care_instructions_metafield != blank
-                      assign accordion_content = care_instructions_metafield | metafield_tag
-                      assign accordion_page_content = blank
-                    else
-                      assign accordion_content = blank
-                      assign accordion_page_content = blank
-                      assign show_collapsible_tab = false
-                    endif
-                  elsif accordion_heading contains 'storage'
-                    if storage_metafield != blank
-                      assign accordion_content = storage_metafield | metafield_tag
-                      assign accordion_page_content = blank
-                    else
-                      assign accordion_content = blank
-                      assign accordion_page_content = blank
-                      assign show_collapsible_tab = false
-                    endif
+                  assign collapsible_render = false
+                  if block.settings.heading != blank
+                    assign collapsible_render = true
+                  elsif block.settings.page != blank
+                    assign collapsible_render = true
+                  elsif block.settings.content != blank
+                    assign collapsible_render = true
                   endif
                 -%}
-                {%- if render_split_care_storage -%}
-                  {%- if care_instructions_metafield != blank -%}
-                    <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
-                      <details id="Details-{{ block.id }}-care-{{ section.id }}">
-                        <summary>
-                          <div class="summary__title">
-                            <h2 class="h4 accordion__title inline-richtext">Care Instructions</h2>
-                          </div>
-                          <span class="product__accordion-indicator" aria-hidden="true"></span>
-                        </summary>
-                        <div class="product__accordion-grid">
-                          <div
-                            class="accordion__content rte product__accordion-inner"
-                            id="ProductAccordion-{{ block.id }}-care-{{ section.id }}"
-                          >
-                            {{ care_instructions_metafield | metafield_tag }}
-                          </div>
-                        </div>
-                      </details>
-                    </div>
-                  {%- endif -%}
-                  {%- if storage_metafield != blank -%}
-                    <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
-                      <details id="Details-{{ block.id }}-storage-{{ section.id }}">
-                        <summary>
-                          <div class="summary__title">
-                            <h2 class="h4 accordion__title inline-richtext">Storage</h2>
-                          </div>
-                          <span class="product__accordion-indicator" aria-hidden="true"></span>
-                        </summary>
-                        <div class="product__accordion-grid">
-                          <div
-                            class="accordion__content rte product__accordion-inner"
-                            id="ProductAccordion-{{ block.id }}-storage-{{ section.id }}"
-                          >
-                            {{ storage_metafield | metafield_tag }}
-                          </div>
-                        </div>
-                      </details>
-                    </div>
-                  {%- endif -%}
-                {%- endif -%}
-                {%- if show_collapsible_tab -%}
+                {%- if collapsible_render -%}
                   <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
                     <details id="Details-{{ block.id }}-{{ section.id }}">
                       <summary>
@@ -326,11 +250,96 @@
                           class="accordion__content rte product__accordion-inner"
                           id="ProductAccordion-{{ block.id }}-{{ section.id }}"
                         >
-                          {{ accordion_content }}
-                          {{ accordion_page_content }}
+                          {{ block.settings.content }}
+                          {{ block.settings.page.content }}
                         </div>
                       </div>
                     </details>
+                  </div>
+                {%- endif -%}
+              {%- when 'product_info_accordions' -%}
+                {%- liquid
+                  assign pia_care = product.metafields.custom.care_instructions
+                  if pia_care == blank
+                    assign pia_care = product.metafields.custom.care_instruction
+                  endif
+                  assign pia_storage = product.metafields.custom.storage
+                  if pia_storage == blank
+                    assign pia_storage = product.metafields.custom.storage_instructions
+                  endif
+                  assign pia_show = false
+                  if product.description != blank
+                    assign pia_show = true
+                  endif
+                  if pia_care != blank
+                    assign pia_show = true
+                  endif
+                  if pia_storage != blank
+                    assign pia_show = true
+                  endif
+                -%}
+                {%- if pia_show -%}
+                  <div class="product-details-accordions quick-add-hidden" {{ block.shopify_attributes }}>
+                    {%- if product.description != blank -%}
+                      <div class="product__accordion accordion">
+                        <details id="Details-{{ block.id }}-desc-{{ section.id }}">
+                          <summary>
+                            <div class="summary__title">
+                              <h2 class="h4 accordion__title inline-richtext">Product Description</h2>
+                            </div>
+                            <span class="product__accordion-indicator" aria-hidden="true"></span>
+                          </summary>
+                          <div class="product__accordion-grid">
+                            <div
+                              class="accordion__content rte product__accordion-inner"
+                              id="ProductAccordion-{{ block.id }}-desc-{{ section.id }}"
+                            >
+                              {{ product.description }}
+                            </div>
+                          </div>
+                        </details>
+                      </div>
+                    {%- endif -%}
+                    {%- if pia_care != blank -%}
+                      <div class="product__accordion accordion">
+                        <details id="Details-{{ block.id }}-care-{{ section.id }}">
+                          <summary>
+                            <div class="summary__title">
+                              <h2 class="h4 accordion__title inline-richtext">Care Instructions</h2>
+                            </div>
+                            <span class="product__accordion-indicator" aria-hidden="true"></span>
+                          </summary>
+                          <div class="product__accordion-grid">
+                            <div
+                              class="accordion__content rte product__accordion-inner"
+                              id="ProductAccordion-{{ block.id }}-care-{{ section.id }}"
+                            >
+                              {{ pia_care | metafield_tag }}
+                            </div>
+                          </div>
+                        </details>
+                      </div>
+                    {%- endif -%}
+                    {%- if pia_storage != blank -%}
+                      <div class="product__accordion accordion">
+                        <details id="Details-{{ block.id }}-storage-{{ section.id }}">
+                          <summary>
+                            <div class="summary__title">
+                              <h2 class="h4 accordion__title inline-richtext">Storage</h2>
+                            </div>
+                            <span class="product__accordion-indicator" aria-hidden="true"></span>
+                          </summary>
+                          <div class="product__accordion-grid">
+                            <div
+                              class="accordion__content rte product__accordion-inner"
+                              id="ProductAccordion-{{ block.id }}-storage-{{ section.id }}"
+                            >
+                              {{ pia_storage | metafield_tag }}
+                            </div>
+                          </div>
+                        </details>
+                      </div>
+                    {%- endif -%}
                   </div>
                 {%- endif -%}
               {%- when 'quantity_selector' -%}
@@ -1288,6 +1297,17 @@
           "type": "page",
           "id": "page",
           "label": "t:sections.main-product.blocks.collapsible_tab.settings.page.label"
+        }
+      ]
+    },
+    {
+      "type": "product_info_accordions",
+      "name": "Product details",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Product description from the admin, plus Care and Storage from product metafields."
         }
       ]
     },
