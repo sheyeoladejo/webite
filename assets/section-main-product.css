@@ -807,9 +807,15 @@ a.product__text {
 	max-width: 44rem;
 }
 
-.product-buy-buttons .restock-rocket-preorder-description {
+.restock-rocket-preorder-description{
+	background-color: (var(--color-foreground)) !important;
+	padding: 0 !important;
+}
+
+.restock-rocket-preorder-description .preorder-detail-icon {
 	display: none !important;
 }
+
 
 .price.price--large.price--final-pieces.price--show-badge {
 	display: flex;

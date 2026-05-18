@@ -26,6 +26,8 @@
       "settings": {
         "heading": "ÈJÌRÉ 2.0",
         "body": "There is a rhythm that flows between women: silent, intuitive, unspoken. A rhythm that binds sisters, friends, and kindred souls. Èjiré 2.0 is an ode to that connection, a continuation of Èjiré 1.0, where duality finds new meaning in sisterhood-rooted in the Creative Director's memories of growing up in lle-Ife, Osun state.\n\n \n\nA world of lush trees, crisp morning air, and the sculptural calm of Obafemi Awolowo University's architecture; this collection draws from a childhood surrounded by balance and beauty. In that space, design met nature, and harmony met imagination. Now, reimagined in Lagos: a city alive with motion, color, and conversation, Ejire 2.o becomes a dialogue between quiet reflection and vibrant energy. It is the meeting of two worlds: past serenity and present pulse",
+        "attribution": "",
+        "reverse_layout": false,
         "image": "shopify://shop_images/ejire-2-professional-8.webp",
         "color_scheme": "scheme-1",
         "padding_top": 64,
@@ -61,9 +63,9 @@
       ],
       "settings": {
         "collection": "ejire-copy",
+        "collection_mode": true,
         "products_to_show": 3,
         "color_scheme": "scheme-1",
-        "collection_mode": false,
         "desktop_columns": "3",
         "padding_top": 64,
         "padding_bottom": 64
@@ -101,9 +103,9 @@
       ],
       "settings": {
         "collection": "ejire",
+        "collection_mode": false,
         "products_to_show": 2,
         "color_scheme": "scheme-1",
-        "collection_mode": false,
         "desktop_columns": "2",
         "padding_top": 64,
         "padding_bottom": 64
@@ -126,6 +128,7 @@
       "type": "collection-grid",
       "settings": {
         "collection": "ejire-products",
+        "collection_mode": false,
         "products_to_show": 5,
         "title": "PICK YOUR FAVORITE",
         "heading_size": "h2",
@@ -140,7 +143,6 @@
         "color_scheme": "scheme-1",
         "image_shape": "default",
         "show_secondary_image": true,
-        "collection_mode": false,
         "show_vendor": false,
         "show_rating": false,
         "quick_add": "none",
