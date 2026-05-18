@@ -267,7 +267,7 @@
 
 .footer__localization h2 {
 	margin: 1rem 1rem 0.5rem;
-	color: rgba(var(--color-foreground), 0.75);
+	color: rgba(var(--color-foreground), 1);
 }
 
 @media screen and (min-width: 768px) {
@@ -339,7 +339,7 @@
 
 .footer-block__details-content .list-menu__item--link,
 .copyright__content a {
-	color: rgba(var(--color-foreground), 0.75);
+	color: rgba(var(--color-foreground), 1);
 }
 
 .footer-block__details-content .list-menu__item--active {

@@ -359,14 +359,14 @@ h5,
 
 h6,
 .h6 {
-	color: rgba(var(--color-foreground), 0.75);
+	color: rgba(var(--color-foreground), 1);
 	margin-block-start: 1.67em;
 	margin-block-end: 1.67em;
 }
 
 blockquote {
 	font-style: italic;
-	color: rgba(var(--color-foreground), 0.75);
+	color: rgba(var(--color-foreground), 1);
 	padding-left: 1rem;
 	text-align: center;
 }
@@ -503,7 +503,7 @@ h6:empty {
 }
 
 .link--text:hover {
-	color: rgba(var(--color-foreground), 0.75);
+	color: rgba(var(--color-foreground), 1);
 }
 
 .link-with-icon {
@@ -1532,7 +1532,7 @@ details[open] > .share-button__fallback {
 }
 
 .share-button__fallback button:hover {
-	color: rgba(var(--color-foreground), 0.75);
+	color: rgba(var(--color-foreground), 1);
 }
 
 .share-button__fallback button:hover .svg-wrapper {
@@ -1690,7 +1690,7 @@ details[open] > .share-button__fallback {
 	font-style: var(--font-body-style);
 	font-weight: var(--font-body-weight);
 	font-size: 0.75rem;
-	color: rgba(var(--color-foreground), 0.75);
+	color: rgba(var(--color-foreground), 1);
 }
 
 .field:hover.field:after,
@@ -1798,7 +1798,7 @@ details[open] > .share-button__fallback {
 	transition:
 		top var(--duration-short) ease,
 		font-size var(--duration-short) ease;
-	color: rgba(var(--color-foreground), 0.75);
+	color: rgba(var(--color-foreground), 1);
 	letter-spacing: 0.1rem;
 	line-height: 1.5;
 }
@@ -2517,7 +2517,7 @@ input[type="checkbox"] {
 
 .header__heading-link .h2 {
 	line-height: 1;
-	color: rgba(var(--color-foreground), 0.75);
+	color: rgba(var(--color-foreground), 1);
 }
 
 .header__heading-logo {
@@ -2878,7 +2878,7 @@ details[open] > .header__submenu {
 .header__menu-item {
 	padding: 1.2rem;
 	text-decoration: none;
-	color: rgba(var(--color-foreground), 0.75);
+	color: rgba(var(--color-foreground), 1);
 }
 
 .header__menu-item:hover {

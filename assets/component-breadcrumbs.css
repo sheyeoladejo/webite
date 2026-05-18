@@ -9,7 +9,7 @@
 
 .breadcrumbs a,
 .breadcrumbs span {
-	color: rgba(var(--color-foreground), 0.75);
+	color: rgba(var(--color-foreground), 1);
 	text-decoration: none;
 }
 
