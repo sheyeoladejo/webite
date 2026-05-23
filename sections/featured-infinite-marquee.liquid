@@ -5,228 +5,231 @@
     </div>
   {%- endif -%}
 {%- else -%}
+  {{ 'section-featured-infinite-marquee.css' | asset_url | stylesheet_tag }}
 
-{{ 'section-featured-infinite-marquee.css' | asset_url | stylesheet_tag }}
-
-{%- style -%}
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-  }
-
-  @media screen and (min-width: 768px) {
+  {%- style -%}
     .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
     }
-  }
-{%- endstyle -%}
 
-<div class="color-{{ section.settings.color_scheme }} isolate gradient">
-  <section
-    class="featured-infinite-marquee section-{{ section.id }}-padding"
-    id="featured-infinite-marquee-{{ section.id }}"
-    data-infinite-marquee
-    data-speed="{{ section.settings.speed_px_per_sec | default: 48 }}"
-  >
-    <div class="page-width featured-infinite-marquee__page">
-      <div class="collection__title title-wrapper title-wrapper--no-top-margin">
-        {%- if section.settings.title != blank -%}
-          <h2
-            class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-          >
-            {{ section.settings.title }}
-          </h2>
-        {%- endif -%}
-      </div>
+    @media screen and (min-width: 768px) {
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+  {%- endstyle -%}
 
-      <div
-        class="featured-infinite-marquee__viewport"
-        data-marquee-viewport
-      >
-      <div
-        class="featured-infinite-marquee__track featured-infinite-marquee__track--animated"
-        data-marquee-track
-        id="marquee-track-{{ section.id }}"
-      >
-        {%- for pass in (1..2) -%}
-          {%- for block in section.blocks -%}
-            {%- liquid
-              assign slide_url = block.settings.slide_url | strip
-              assign slide_has_link = false
-              if slide_url != blank
-                assign slide_has_link = true
-              endif
-              assign link_label_raw = block.settings.link_label | strip
-              assign link_show_label = false
-              if slide_has_link
-                assign link_show_label = true
-              endif
-            -%}
-            <article
-              class="featured-infinite-marquee__slide{% if slide_has_link %} featured-infinite-marquee__slide--linked{% endif %}"
-              {% if pass == 1 %}
-                {{ block.shopify_attributes }}
-              {% else %}
-                aria-hidden="true"
-              {% endif %}
+  <div class="color-{{ section.settings.color_scheme }} isolate gradient">
+    <section
+      class="featured-infinite-marquee section-{{ section.id }}-padding"
+      id="featured-infinite-marquee-{{ section.id }}"
+      data-infinite-marquee
+      data-speed="{{ section.settings.speed_px_per_sec | default: 48 }}"
+    >
+      <div class="page-width featured-infinite-marquee__page">
+        <div class="collection__title title-wrapper title-wrapper--no-top-margin">
+          {%- if section.settings.title != blank -%}
+            <h2
+              class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
             >
-              {%- if slide_has_link -%}
-                <a
-                  href="{{ slide_url }}"
-                  class="featured-infinite-marquee__slide-link"
-                  {% if pass != 1 %}
-                    tabindex="-1"
+              {{ section.settings.title }}
+            </h2>
+          {%- endif -%}
+        </div>
+
+        <div
+          class="featured-infinite-marquee__viewport"
+          data-marquee-viewport
+        >
+          <div
+            class="featured-infinite-marquee__track featured-infinite-marquee__track--animated"
+            data-marquee-track
+            id="marquee-track-{{ section.id }}"
+          >
+            {%- for pass in (1..2) -%}
+              {%- for block in section.blocks -%}
+                {%- liquid
+                  assign slide_url = block.settings.slide_url | strip
+                  assign slide_has_link = false
+                  if slide_url != blank
+                    assign slide_has_link = true
+                  endif
+                  assign link_label_raw = block.settings.link_label | strip
+                  assign link_show_label = false
+                  if slide_has_link
+                    assign link_show_label = true
+                  endif
+                -%}
+                <article
+                  class="featured-infinite-marquee__slide{% if slide_has_link %} featured-infinite-marquee__slide--linked{% endif %}"
+                  {% if pass == 1 %}
+                    {{ block.shopify_attributes }}
+                  {% else %}
+                    aria-hidden="true"
                   {% endif %}
                 >
-              {%- endif -%}
-              <div class="featured-infinite-marquee__body">
-                <div class="featured-infinite-marquee__quote rte" lang="{{ request.locale.iso_code | default: 'en' }}">
-                  <span class="featured-infinite-marquee__q-mark" aria-hidden="true">“</span>
-                  {{- block.settings.quote | strip | escape | newline_to_br -}}
-                  <span class="featured-infinite-marquee__q-mark" aria-hidden="true">”</span>
-                </div>
-              </div>
-              {%- if link_show_label and link_label_raw != blank -%}
-                <span class="featured-infinite-marquee__view-more">
-                  {{- link_label_raw | escape -}}
-                </span>
-              {%- elsif link_show_label -%}
-                <span class="featured-infinite-marquee__view-more">
-                  {{- 'sections.featured_infinite_marquee.view_more' | t -}}
-                </span>
-              {%- endif -%}
-              {%- liquid
-                assign show_footer = false
-                if block.settings.name != blank or block.settings.reviewer_image != blank or block.settings.business_logo != blank
-                  assign show_footer = true
-                endif
-              -%}
-              {%- if show_footer -%}
-                <div class="featured-infinite-marquee__spacer" aria-hidden="true"></div>
-                <div class="featured-infinite-marquee__footer">
-                  <div class="featured-infinite-marquee__footer-inner">
-                    {%- if block.settings.reviewer_image != blank -%}
-                      <div class="featured-infinite-marquee__avatar">
-                        {{
-                          block.settings.reviewer_image
-                          | image_url: width: 120
-                          | image_tag:
-                            loading: 'lazy',
-                            class: 'featured-infinite-marquee__avatar-img',
-                            widths: '64, 80, 100, 120',
-                            sizes: '64px',
-                            alt: block.settings.name | default: 'Reviewer' | escape
-                        }}
-                      </div>
-                    {%- endif -%}
-                    <div class="featured-infinite-marquee__footer-meta">
-                      {%- if block.settings.name != blank -%}
-                        <p class="featured-infinite-marquee__name">{{ block.settings.name | escape }}</p>
-                      {%- endif -%}
-                      {%- if block.settings.business_logo != blank -%}
-                        <div class="featured-infinite-marquee__brand-logo">
-                          {{
-                            block.settings.business_logo
-                            | image_url: width: 200
-                            | image_tag:
-                              loading: 'lazy',
-                              class: 'featured-infinite-marquee__brand-logo-img',
-                              widths: '100, 150, 200',
-                              sizes: '160px',
-                              alt: 'Company logo'
-                          }}
-                        </div>
-                      {%- endif -%}
+                  {%- if slide_has_link -%}
+                    <a
+                      href="{{ slide_url }}"
+                      class="featured-infinite-marquee__slide-link"
+                      {% if pass != 1 %}
+                        tabindex="-1"
+                      {% endif %}
+                    >
+                  {%- endif -%}
+                  <div class="featured-infinite-marquee__body">
+                    <div
+                      class="featured-infinite-marquee__quote rte"
+                      lang="{{ request.locale.iso_code | default: 'en' }}"
+                    >
+                      {% comment %} <span class="featured-infinite-marquee__q-mark" aria-hidden="true">“</span> {% endcomment %}
+                      {{- block.settings.quote | strip | escape | newline_to_br -}}
+                      {% comment %} <span class="featured-infinite-marquee__q-mark" aria-hidden="true">”</span> {% endcomment %}
                     </div>
                   </div>
-                </div>
-              {%- endif -%}
-              {%- if slide_has_link -%}
-                </a>
-              {%- endif -%}
-            </article>
-          {%- endfor -%}
-        {%- endfor -%}
+                  {%- if link_show_label and link_label_raw != blank -%}
+                    <span class="featured-infinite-marquee__view-more">
+                      {{- link_label_raw | escape -}}
+                    </span>
+                  {%- elsif link_show_label -%}
+                    <span class="featured-infinite-marquee__view-more">
+                      {{- 'sections.featured_infinite_marquee.view_more' | t -}}
+                    </span>
+                  {%- endif -%}
+                  {%- liquid
+                    assign show_footer = false
+                    if block.settings.name != blank or block.settings.reviewer_image != blank or block.settings.business_logo != blank
+                      assign show_footer = true
+                    endif
+                  -%}
+                  {%- if show_footer -%}
+                    <div class="featured-infinite-marquee__spacer" aria-hidden="true"></div>
+                    <div class="featured-infinite-marquee__footer">
+                      <div class="featured-infinite-marquee__footer-inner">
+                        {%- if block.settings.reviewer_image != blank -%}
+                          <div class="featured-infinite-marquee__avatar">
+                            {{
+                              block.settings.reviewer_image
+                              | image_url: width: 120
+                              | image_tag:
+                                loading: 'lazy',
+                                class: 'featured-infinite-marquee__avatar-img',
+                                widths: '64, 80, 100, 120',
+                                sizes: '64px',
+                                alt: block.settings.name
+                              | default: 'Reviewer'
+                              | escape
+                            }}
+                          </div>
+                        {%- endif -%}
+                        <div class="featured-infinite-marquee__footer-meta">
+                          {%- if block.settings.name != blank -%}
+                            <p class="featured-infinite-marquee__name">{{ block.settings.name | escape }}</p>
+                          {%- endif -%}
+                          {%- if block.settings.business_logo != blank -%}
+                            <div class="featured-infinite-marquee__brand-logo">
+                              {{
+                                block.settings.business_logo
+                                | image_url: width: 200
+                                | image_tag:
+                                  loading: 'lazy',
+                                  class: 'featured-infinite-marquee__brand-logo-img',
+                                  widths: '100, 150, 200',
+                                  sizes: '160px',
+                                  alt: 'Company logo'
+                              }}
+                            </div>
+                          {%- endif -%}
+                        </div>
+                      </div>
+                    </div>
+                  {%- endif -%}
+                  {%- if slide_has_link -%}
+                    </a>
+                  {%- endif -%}
+                </article>
+              {%- endfor -%}
+            {%- endfor -%}
+          </div>
+        </div>
       </div>
-    </div>
-    </div>
-  </section>
-</div>
+    </section>
+  </div>
 
-<script>
-  (() => {
-    const setupTrack = (root) => {
-      if (!root || !root.hasAttribute('data-infinite-marquee')) return;
+  <script>
+    (() => {
+      const setupTrack = (root) => {
+        if (!root || !root.hasAttribute('data-infinite-marquee')) return;
 
-      const track = root.querySelector('[data-marquee-track]');
-      if (!track) return;
+        const track = root.querySelector('[data-marquee-track]');
+        if (!track) return;
 
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        track.classList.remove('featured-infinite-marquee__track--animated');
-        track.style.removeProperty('--marquee-duration');
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          track.classList.remove('featured-infinite-marquee__track--animated');
+          track.style.removeProperty('--marquee-duration');
+          if (root._marqueeResize) {
+            root._marqueeResize.disconnect();
+            root._marqueeResize = null;
+          }
+          return;
+        }
+
+        const speed = parseFloat(String(root.getAttribute('data-speed') || '48').trim()) || 48;
+        const setDuration = () => {
+          const half = track.scrollWidth / 2;
+          if (half < 1) return;
+          const sec = half / speed;
+          track.classList.add('featured-infinite-marquee__track--animated');
+          track.style.setProperty('--marquee-duration', sec + 's');
+        };
+
+        setDuration();
+
         if (root._marqueeResize) {
           root._marqueeResize.disconnect();
-          root._marqueeResize = null;
         }
-        return;
-      }
-
-      const speed = parseFloat(String(root.getAttribute('data-speed') || '48').trim()) || 48;
-      const setDuration = () => {
-        const half = track.scrollWidth / 2;
-        if (half < 1) return;
-        const sec = half / speed;
-        track.classList.add('featured-infinite-marquee__track--animated');
-        track.style.setProperty('--marquee-duration', sec + 's');
+        const ro = new ResizeObserver(() => {
+          setDuration();
+        });
+        ro.observe(track);
+        root._marqueeResize = ro;
       };
 
-      setDuration();
+      const init = (container) => {
+        if (!container) return;
+        if (container.matches && container.matches('[data-infinite-marquee]')) {
+          setupTrack(container);
+        }
+        if (container.querySelectorAll) {
+          container.querySelectorAll('[data-infinite-marquee]').forEach((n) => setupTrack(n));
+        }
+      };
 
-      if (root._marqueeResize) {
-        root._marqueeResize.disconnect();
+      if (document.readyState === 'loading') {
+        document.addEventListener(
+          'DOMContentLoaded',
+          function () {
+            init(document);
+          },
+          { once: true }
+        );
+      } else {
+        init(document);
       }
-      const ro = new ResizeObserver(() => {
-        setDuration();
+
+      document.addEventListener('shopify:section:load', (event) => {
+        init(event.target);
       });
-      ro.observe(track);
-      root._marqueeResize = ro;
-    };
+    })();
+  </script>
 
-    const init = (container) => {
-      if (!container) return;
-      if (container.matches && container.matches('[data-infinite-marquee]')) {
-        setupTrack(container);
-      }
-      if (container.querySelectorAll) {
-        container.querySelectorAll('[data-infinite-marquee]').forEach((n) => setupTrack(n));
-      }
-    };
-
-    if (document.readyState === 'loading') {
-      document.addEventListener(
-        'DOMContentLoaded',
-        function () {
-          init(document);
-        },
-        { once: true }
-      );
-    } else {
-      init(document);
+  <style>
+    #featured-infinite-marquee-{{ section.id }} [data-marquee-track].featured-infinite-marquee__track--animated {
+      animation-duration: var(--marquee-duration, 45s);
     }
-
-    document.addEventListener('shopify:section:load', (event) => {
-      init(event.target);
-    });
-  })();
-</script>
-
-<style>
-  #featured-infinite-marquee-{{ section.id }} [data-marquee-track].featured-infinite-marquee__track--animated {
-    animation-duration: var(--marquee-duration, 45s);
-  }
-</style>
-
+  </style>
 {%- endif -%}
 
 {% schema %}
@@ -333,12 +336,7 @@
   "presets": [
     {
       "name": "Featured infinite marquee",
-      "blocks": [
-        { "type": "slide" },
-        { "type": "slide" },
-        { "type": "slide" },
-        { "type": "slide" }
-      ]
+      "blocks": [{ "type": "slide" }, { "type": "slide" }, { "type": "slide" }, { "type": "slide" }]
     }
   ]
 }
