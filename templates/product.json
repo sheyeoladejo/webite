@@ -8,106 +8,108 @@
  * ------------------------------------------------------------
  */
 {
-	"sections": {
-		"main": {
-			"type": "main-product",
-			"blocks": {
-				"title": {
-					"type": "title",
-					"settings": {}
-				},
-				"subtitle": {
-					"type": "text",
-					"settings": {
-						"text": "An iconic design that embodies elegance, quality, and versatility.",
-						"text_style": "body"
-					}
-				},
-				"price": {
-					"type": "price",
-					"settings": {}
-				},
-				"variant_picker": {
-					"type": "variant_picker",
-					"settings": {
-						"picker_type": "button",
-						"swatch_shape": "circle"
-					}
-				},
-				"quantity_selector": {
-					"type": "quantity_selector",
-					"settings": {}
-				},
-				"buy_buttons": {
-					"type": "buy_buttons",
-					"settings": {
-						"show_dynamic_checkout": true,
-						"show_gift_card_recipient": true
-					}
-				},
-				"meta_links": {
-					"type": "custom_liquid",
-					"settings": {
-						"custom_liquid": "{% render 'product-meta-links' %}"
-					}
-				},
-				"product_details": {
-					"type": "product_info_accordions",
-					"settings": {}
-				}
-			},
-			"block_order": [
-				"title",
-				"subtitle",
-				"price",
-				"variant_picker",
-				"quantity_selector",
-				"buy_buttons",
-				"meta_links",
-				"product_details"
-			],
-			"settings": {
-				"enable_sticky_info": true,
-				"color_scheme": "scheme-1",
-				"media_size": "large",
-				"constrain_to_viewport": true,
-				"media_fit": "contain",
-				"gallery_layout": "stacked",
-				"mobile_thumbnails": "hide",
-				"media_position": "left",
-				"image_zoom": "lightbox",
-				"hide_variants": true,
-				"enable_video_looping": false,
-				"padding_top": 64,
-				"padding_bottom": 64
-			}
-		},
-		"related-products": {
-			"type": "collection-grid",
-			"settings": {
-				"collection": "",
-				"products_to_show": 3,
-				"title": "Check Out The Full Collection",
-				"heading_size": "h2",
-				"description": "",
-				"show_description": false,
-				"description_style": "body",
-				"full_width": false,
-				"show_view_all": true,
-				"view_all_style": "solid",
-				"view_all_label": "View Full Collection",
-				"view_all_link": "",
-				"color_scheme": "scheme-1",
-				"image_ratio": "square",
-				"image_shape": "default",
-				"show_secondary_image": true,
-				"show_vendor": false,
-				"show_rating": false,
-				"quick_add": "none",
-				"padding_top": 64,
-				"padding_bottom": 64
-			}
-		}
-	},
-	"order": ["main", "related-products"]
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "subtitle": {
+          "type": "text",
+          "settings": {
+            "text": "An iconic design that embodies elegance, quality, and versatility.",
+            "text_style": "body"
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "meta_links": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{% render 'product-meta-links' %}"
+          }
+        },
+        "product_details": {
+          "type": "product_info_accordions",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "title",
+        "subtitle",
+        "price",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "meta_links",
+        "product_details"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "stacked",
+        "mobile_thumbnails": "hide",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "related-products": {
+      "type": "collection-grid",
+      "settings": {
+        "collection": "",
+        "products_to_show": 3,
+        "title": "Check Out The Full Collection",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "view_all_label": "View Full Collection",
+        "view_all_link": "",
+        "color_scheme": "scheme-1",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    }
+  },
+  "order": [
+    "main",
+    "related-products"
+  ]
 }

@@ -162,54 +162,43 @@
     "featured_infinite_marquee": {
       "type": "featured-infinite-marquee",
       "blocks": {
+        "slide_gNtREB": {
+          "type": "slide",
+          "settings": {
+            "quote": "For Temitope, her journey with Sheye Oladejo started long before her wedding day. After seeing a design created for Bonang Matheba at an award show, she instantly connected with the brand’s aesthetic and made a personal decision.\n\n\"When I get married, I’m going to use Sheye.",
+            "name": "Inspiration to a Dream Wedding",
+            "slide_url": "shopify://blogs/moments/from-instagram-inspiration-to-a-dream-wedding-experience",
+            "link_label": "READ MORE"
+          }
+        },
         "slide_1": {
           "type": "slide",
           "settings": {
-            "quote": "From a sketch to a dream come true! I highly recommend Sheye Oladejo for all your fabulous dress needs. Their entire team was professional, communicated constantly and delivered beyond my expectations. The in person fitting went smoothly and I needed very minor alterations which speaks to the high quality and precision of their craftsmanship. Worth every penny and more, you will be in great hands with this expert and talented designer brand! The best of Africa!",
-            "name": "Mira Yaache",
-            "slide_url": "",
-            "link_label": ""
-          }
-        },
-        "slide_2": {
-          "type": "slide",
-          "settings": {
-            "quote": "I had such a great experience with SheyeOladejo! They made me the most beautiful dress for my mother's 65th birthday party and I was in awe! They are so professional, so timely and the dress fit PERFECTLY with no need for alterations. They were very thorough during the video session for us to take measurements. I am very excited to have them make another dress for me!",
-            "name": "Tomilade Adepoju",
-            "slide_url": "",
-            "link_label": ""
-          }
-        },
-        "slide_3": {
-          "type": "slide",
-          "settings": {
-            "quote": "I had a great experience with the team from planning stage to fittings. And I extremely loved my outfit. I looked snatched just the way I imagined.",
-            "name": "",
-            "business_logo": "shopify://shop_images/VOGUE_LOGO.svg",
-            "slide_url": "shopify://blogs/moments/bazaar",
-            "link_label": ""
+            "quote": "Working with the Sheye Oladejo team from start to finish was a wonderful experience. Every step of the process was handled with professionalism, attention to detail, warmth, and genuine care.",
+            "name": "Fulani Bridal",
+            "slide_url": "shopify://blogs/moments/a-fulani-bridal-vision-brought-to-life-with-precision-and-care",
+            "link_label": "READ MORE"
           }
         },
         "slide_4": {
           "type": "slide",
           "settings": {
-            "quote": "Distance does not matter as I got my measurements done virtually by very professional staff. Received my outfit and it was a perfect fit. Absolutely gorgeous and beautiful. Thank you SheyeOladejo",
-            "name": "Stella Chioma",
-            "slide_url": "",
-            "link_label": ""
+            "quote": "I felt that the team listened to me during my fittings. I was amazed by how beautiful it looked and how beautiful it made me feel.\"\n\nThis was her comment when she received the final piece, everything came together in a way that felt both beautiful and personal.",
+            "name": "Finding the Right Designer",
+            "slide_url": "shopify://blogs/moments/on-finding-the-right-designer-and-feeling-truly-understood",
+            "link_label": "READ MORE"
           }
         }
       },
       "block_order": [
+        "slide_gNtREB",
         "slide_1",
-        "slide_2",
-        "slide_3",
         "slide_4"
       ],
       "settings": {
         "title": "FEATURED",
         "heading_size": "h2",
-        "speed_px_per_sec": 48,
+        "speed_px_per_sec": 24,
         "color_scheme": "scheme-1",
         "padding_top": 64,
         "padding_bottom": 64
@@ -284,7 +273,7 @@
         "heading_size": "h2",
         "color_scheme": "scheme-1",
         "padding_top": 64,
-        "padding_bottom": 64
+        "padding_bottom": 128
       }
     }
   },
