@@ -22,8 +22,10 @@
       "type": "row-content-card-section",
       "settings": {
         "heading": "ABOUT US",
-        "body": "At SheyeOladejo, We believe that fashion is a powerful tool of self-expression, capable of telling stories and creating amazing connections. That is why we are the pinnacle of sophistication and personalised luxury. \n\nEstablished in 2016, Our brand is dedicated to creating breathtaking bridal and bespoke garments that celebrate individuality and timeless elegance. We are known for our attention to details, innovative use of fabrics and our commitment to craftsmanship.",
+        "body": "SheyeOladejo is a luxury womenswear brand rooted in timeless femininity, refined craftsmanship, and quiet power. Founded by Oluwaseye Oladejo, the brand exists at the intersection of couture artistry and modern elegance, creating pieces that celebrate the woman who desires sophistication with depth and intention.\nKnown for its minimal yet expressive aesthetic, SheyeOladejo is distinguished by sculptural silhouettes, intricate detailing, textural experimentation, and a thoughtful approach to craftsmanship. Every garment is designed with precision, balancing softness with structure and elegance with emotional resonance. From bridal couture to ready-to-wear, each piece is created to make women feel confident, seen, and unforgettable.",
         "attribution": "",
+        "button_link": "/about/company",
+        "button_label": "Read more",
         "reverse_layout": false,
         "image": "shopify://shop_images/ejire-2-professional-2.webp",
         "color_scheme": "scheme-1",
@@ -35,8 +37,10 @@
       "type": "row-content-card-section",
       "settings": {
         "heading": "ABOUT THE FOUNDER",
-        "body": "With a background in computer engineering from Obafemi Awolowo University and an MBA in view from Lagos Business School, Oluwaseye’s journey into fashion grew from a lifelong love for creation, inspired by making handmade pieces and a desire for unique styles.\n\nThis passion led to SheyeOladejo and Scqueeze, celebrating everyday elegance. Inspired by travel and nature, her work has earned features and showcases, while she remains committed to helping women feel confident, seen, and beautiful.",
+        "body": "At the heart of SheyeOladejo is Oluwaseye Oladejo, a designer whose work is shaped by intention, culture, craftsmanship, and an enduring belief in the power of feminine elegance.\nRaised in Ile-Ife within the serene landscape and architectural richness of Obafemi Awolowo University, Oluwaseye’s appreciation for beauty began long before fashion became her profession. Surrounded by nature, structure, artistry, and heritage, she developed an early sensitivity to detail, form, and storytelling, elements that continue to define the SheyeOladejo aesthetic today.",
         "attribution": "OluwaSheye Oladejo — Founder of SheyeOladejo",
+        "button_link": "/about/founder",
+        "button_label": "Read more",
         "reverse_layout": true,
         "image": "shopify://shop_images/ejire-2-professional-17.webp",
         "color_scheme": "scheme-1",
@@ -50,29 +54,29 @@
         "testimonial_1": {
           "type": "testimonial",
           "settings": {
-            "quote": "From a sketch to a dream come true! I highly recommend Sheye Oladejo for all your fabulous dress needs. Their entire team was professional, communicated constantly and delivered beyond my expectations. The in person fitting went smoothly and I needed very minor alterations which speaks to the high quality and precision of their craftsmanship. Worth every penny and more, you will be in great hands with this expert and talented designer brand! The best of Africa!",
-            "name": "Mira Yaache"
+            "name": "Mira Yaache",
+            "quote": "From a sketch to a dream come true! I highly recommend Sheye Oladejo for all your fabulous dress needs. Their entire team was professional, communicated constantly and delivered beyond my expectations. The in person fitting went smoothly and I needed very minor alterations which speaks to the high quality and precision of their craftsmanship. Worth every penny and more, you will be in great hands with this expert and talented designer brand! The best of Africa!"
           }
         },
         "testimonial_2": {
           "type": "testimonial",
           "settings": {
-            "quote": "I had such a great experience with SheyeOladejo! They made me the most beautiful dress for my mother's 65th birthday party and I was in awe! They are so professional, so timely and the dress fit PERFECTLY with no need for alterations. They were very thorough during the video session for us to take measurements. I am very excited to have them make another dress for me!",
-            "name": "Tomilade Adepoju"
+            "name": "Tomilade Adepoju",
+            "quote": "I had such a great experience with SheyeOladejo! They made me the most beautiful dress for my mother's 65th birthday party and I was in awe! They are so professional, so timely and the dress fit PERFECTLY with no need for alterations. They were very thorough during the video session for us to take measurements. I am very excited to have them make another dress for me!"
           }
         },
         "testimonial_3": {
           "type": "testimonial",
           "settings": {
-            "quote": "I had a great experience with the team from planning stage to fittings. And I extremely loved my outfit. I looked snatched just the way I imagined.",
-            "name": "Ifeoluwani Ojo"
+            "name": "Ifeoluwani Ojo",
+            "quote": "I had a great experience with the team from planning stage to fittings. And I extremely loved my outfit. I looked snatched just the way I imagined."
           }
         },
         "testimonial_4": {
           "type": "testimonial",
           "settings": {
-            "quote": "Distance does not matter as I got my measurements done virtually by very professional staff. Received my outfit and it was a perfect fit. Absolutely gorgeous and beautiful. Thank you SheyeOladejo",
-            "name": "Stella Chioma"
+            "name": "Stella Chioma",
+            "quote": "Distance does not matter as I got my measurements done virtually by very professional staff. Received my outfit and it was a perfect fit. Absolutely gorgeous and beautiful. Thank you SheyeOladejo"
           }
         }
       },

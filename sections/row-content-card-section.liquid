@@ -23,6 +23,8 @@
     heading: section.settings.heading,
     body: section.settings.body,
     attribution: section.settings.attribution,
+    button_link: section.settings.button_link,
+    button_label: section.settings.button_label,
     reverse_layout: section.settings.reverse_layout,
     unique_id: section.id
   %}
@@ -51,6 +53,22 @@
       "type": "text",
       "id": "attribution",
       "label": "Attribution"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Read more",
+      "info": "Shown when a button link is set."
     },
     {
       "type": "checkbox",

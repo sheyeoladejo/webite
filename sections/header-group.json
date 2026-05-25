@@ -45,7 +45,7 @@
         "nav_about": {
           "type": "nav_link",
           "settings": {
-            "label": "ABOUT",
+            "label": "ABOUT US",
             "link": "/about"
           }
         },

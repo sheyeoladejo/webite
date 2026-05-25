@@ -18,3 +18,12 @@
 	font-style: normal;
 	text-align: center;
 }
+
+.row-content-card__actions {
+	margin-top: 1.5rem;
+	text-align: center;
+}
+
+.row-content-card__button {
+	min-width: 12rem;
+}

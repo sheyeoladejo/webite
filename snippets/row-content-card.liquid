@@ -6,6 +6,8 @@
   - body: string (optional; newline-separated paragraphs)
   - attribution: string (optional)
   - link: URL string (optional; wraps row in a single link when set)
+  - button_link: URL string (optional; shows a button at the end of the text)
+  - button_label: string (optional; defaults to "Read more" when button_link is set)
   - reverse_layout: boolean (optional)
   - unique_id: string (required for unique heading id)
 {%- endcomment -%}
@@ -54,6 +56,13 @@
       {%- endif -%}
       {%- if attribution != blank -%}
         <cite class="row-content-card__attribution">{{ attribution | escape }}</cite>
+      {%- endif -%}
+      {%- if button_link != blank and link == blank -%}
+        <div class="row-content-card__actions">
+          <a href="{{ button_link }}" class="button button--secondary row-content-card__button">
+            {{ button_label | default: 'Read more' | escape }}
+          </a>
+        </div>
       {%- endif -%}
     </div>
   </div>
