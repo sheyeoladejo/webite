@@ -1,6 +1,8 @@
 {%- liquid
   assign breadcrumbs_class = class | default: 'breadcrumbs'
   assign breadcrumbs_label = aria_label | default: 'Breadcrumb'
+  assign about_page_url = pages.about.url | default: '/pages/about'
+  assign about_page_label = pages.about.title | default: 'About'
 -%}
 
 <nav class="{{ breadcrumbs_class }} caption" aria-label="{{ breadcrumbs_label }}">
@@ -63,11 +65,19 @@
       <span>{{ breadcrumb_collection_title | escape }}</span>
     {%- endif -%}
   {%- elsif template_type == 'article' and blog != blank and article != blank -%}
-    <a href="{{ blog.url }}">{{ blog.title | escape }}</a>
-    <span aria-hidden="true"> / </span>
-    <span>{{ article.title | escape }}</span>
+    {%- if blog.handle == 'about' or template.suffix == 'about-blog' -%}
+      <a href="{{ about_page_url }}">{{ about_page_label | escape }}</a>
+      <span aria-hidden="true"> / </span>
+      <span>{{ article.title | escape }}</span>
+    {%- else -%}
+      <a href="{{ blog.url }}">{{ blog.title | escape }}</a>
+      <span aria-hidden="true"> / </span>
+      <span>{{ article.title | escape }}</span>
+    {%- endif -%}
   {%- elsif template_type == 'blog' and blog != blank -%}
     <span>{{ blog.title | escape }}</span>
+  {%- elsif page != blank and page.handle == 'about' -%}
+    <a href="{{ about_page_url }}">{{ about_page_label | escape }}</a>
   {%- elsif page != blank -%}
     <span>{{ page.title | escape }}</span>
   {%- elsif current_title != blank -%}
