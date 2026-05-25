@@ -137,6 +137,28 @@
         </div>
       {%- endif -%}
     </div>
+
+    {%- if section.settings.show_view_all -%}
+      <div class="center collection__view-all{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+        {%- assign view_all_url = section.settings.view_all_link -%}
+        {%- if view_all_url == blank and mh_blog != blank -%}
+          {%- assign view_all_url = mh_blog.url -%}
+        {%- elsif view_all_url == blank -%}
+          {%- assign view_all_url = '/moments' -%}
+        {%- endif -%}
+        <a
+          href="{{ view_all_url }}"
+          class="{% if section.settings.view_all_style == 'link' %}link underlined-link{% elsif section.settings.view_all_style == 'solid' %}button{% else %}button button--secondary{% endif %}"
+          aria-label="{{ 'sections.featured_blog.view_all' | t }}"
+        >
+          {%- if section.settings.view_all_label != blank -%}
+            {{ section.settings.view_all_label }}
+          {%- else -%}
+            {{ 'sections.featured_collection.view_all' | t }}
+          {%- endif -%}
+        </a>
+      </div>
+    {%- endif -%}
   </div>
 </div>
 
@@ -188,6 +210,39 @@
       "id": "show_author",
       "default": false,
       "label": "Show author"
+    },
+    {
+      "type": "header",
+      "content": "View all button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "default": true,
+      "label": "Show 'View all' button"
+    },
+    {
+      "type": "select",
+      "id": "view_all_style",
+      "label": "View all button style",
+      "options": [
+        { "value": "link", "label": "Link" },
+        { "value": "outline", "label": "Outline" },
+        { "value": "solid", "label": "Solid" }
+      ],
+      "default": "solid"
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "View all button label",
+      "default": "View more"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View all link",
+      "info": "Defaults to /moments when empty."
     },
     {
       "type": "color_scheme",
