@@ -49,7 +49,7 @@
         class="
           card article-card article-card--block-link
           card--{{ settings.blog_card_style }}
-          {% if stacked_layout_active %} card--stacked-product card--extend-height{% endif %}
+          {% if stacked_layout_active %} card--stacked-product{% endif %}
           {% unless stacked_layout_active %}
             {% if media_height and media_height != 'adapt' %} article-card__image--{{ media_height }}{% endif %}
           {% endunless %}
@@ -64,7 +64,7 @@
         class="
           card article-card
           card--{{ settings.blog_card_style }}
-          {% if stacked_layout_active %} card--stacked-product card--extend-height{% endif %}
+          {% if stacked_layout_active %} card--stacked-product{% endif %}
           {% unless stacked_layout_active %}
             {% if media_height and media_height != 'adapt' %} article-card__image--{{ media_height }}{% endif %}
           {% endunless %}

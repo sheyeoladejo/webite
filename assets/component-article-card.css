@@ -78,7 +78,20 @@
 	text-decoration: none;
 }
 
+.moments-grid__list .grid__item {
+	align-self: stretch;
+}
+
+.moments-grid__list .grid__item > .article-card-wrapper {
+	height: 100%;
+}
+
+.article-card-wrapper .card--stacked-product.article-card {
+	height: 100%;
+}
+
 .article-card-wrapper .card--stacked-product .card__inner {
+	flex: 0 0 auto;
 	align-items: stretch;
 	width: 100%;
 }
@@ -96,6 +109,41 @@
 
 .article-card-wrapper .card--stacked-product .card__inner .card__media img {
 	object-position: top center;
+}
+
+.article-card-wrapper .card--stacked-product > .card__content {
+	flex: 1 1 auto;
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+}
+
+.article-card-wrapper .card--stacked-product > .card__content .card__information {
+	flex: 1 1 auto;
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.article-card-wrapper .card--stacked-product > .card__content .card__heading {
+	flex: 1 1 auto;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 0.6rem;
+	min-height: 0;
+}
+
+.article-card-wrapper .card--stacked-product > .card__content .card__heading > a,
+.article-card-wrapper .card--stacked-product > .card__content .card__heading > span {
+	display: block;
+}
+
+.article-card-wrapper .card--stacked-product .article-card__info,
+.article-card-wrapper .card--stacked-product .article-card__excerpt,
+.article-card-wrapper .card--stacked-product .article-card__footer {
+	flex-shrink: 0;
 }
 
 .article-card__excerpt {
