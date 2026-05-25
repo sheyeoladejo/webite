@@ -44,55 +44,46 @@
         "padding_bottom": 64
       }
     },
-    "featured_infinite_marquee": {
-      "type": "featured-infinite-marquee",
+    "testimonials_carousel": {
+      "type": "testimonials-carousel",
       "blocks": {
-        "slide_1": {
-          "type": "slide",
+        "testimonial_1": {
+          "type": "testimonial",
           "settings": {
             "quote": "From a sketch to a dream come true! I highly recommend Sheye Oladejo for all your fabulous dress needs. Their entire team was professional, communicated constantly and delivered beyond my expectations. The in person fitting went smoothly and I needed very minor alterations which speaks to the high quality and precision of their craftsmanship. Worth every penny and more, you will be in great hands with this expert and talented designer brand! The best of Africa!",
-            "name": "Mira Yaache",
-            "slide_url": "",
-            "link_label": ""
+            "name": "Mira Yaache"
           }
         },
-        "slide_2": {
-          "type": "slide",
+        "testimonial_2": {
+          "type": "testimonial",
           "settings": {
             "quote": "I had such a great experience with SheyeOladejo! They made me the most beautiful dress for my mother's 65th birthday party and I was in awe! They are so professional, so timely and the dress fit PERFECTLY with no need for alterations. They were very thorough during the video session for us to take measurements. I am very excited to have them make another dress for me!",
-            "name": "Tomilade Adepoju",
-            "slide_url": "",
-            "link_label": ""
+            "name": "Tomilade Adepoju"
           }
         },
-        "slide_3": {
-          "type": "slide",
+        "testimonial_3": {
+          "type": "testimonial",
           "settings": {
             "quote": "I had a great experience with the team from planning stage to fittings. And I extremely loved my outfit. I looked snatched just the way I imagined.",
-            "name": "",
-            "business_logo": "shopify://shop_images/VOGUE_LOGO.svg",
-            "slide_url": "",
-            "link_label": ""
+            "name": "Ifeoluwani Ojo"
           }
         },
-        "slide_4": {
-          "type": "slide",
+        "testimonial_4": {
+          "type": "testimonial",
           "settings": {
             "quote": "Distance does not matter as I got my measurements done virtually by very professional staff. Received my outfit and it was a perfect fit. Absolutely gorgeous and beautiful. Thank you SheyeOladejo",
-            "name": "Stella Chioma",
-            "slide_url": "",
-            "link_label": ""
+            "name": "Stella Chioma"
           }
         }
       },
       "block_order": [
-        "slide_1",
-        "slide_2",
-        "slide_3",
-        "slide_4"
+        "testimonial_1",
+        "testimonial_2",
+        "testimonial_3",
+        "testimonial_4"
       ],
       "settings": {
-        "title": "FEATURED",
+        "title": "TESTIMONIALS",
         "heading_size": "h2",
         "speed_px_per_sec": 48,
         "color_scheme": "scheme-1",
@@ -216,7 +207,7 @@
     "hero",
     "about_founder",
     "about_brand",
-    "featured_infinite_marquee",
+    "testimonials_carousel",
     "about_products",
     "about_values"
   ]

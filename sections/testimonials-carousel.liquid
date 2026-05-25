@@ -1,254 +1,172 @@
-{%- style -%}
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-  }
-
-  @media screen and (min-width: 768px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
-  }
-{%- endstyle -%}
-
-<div class="color-{{ section.settings.color_scheme }} isolate gradient">
-  <section
-    class="testimonials-carousel section-{{ section.id }}-padding"
-    id="testimonials-carousel-{{ section.id }}"
-    data-testimonials-carousel
-  >
-    <div class="collection__title title-wrapper title-wrapper--no-top-margin page-width">
-      {%- if section.settings.title != blank -%}
-        <h2 class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-          {{ section.settings.title }}
-        </h2>
-      {%- endif -%}
+{%- if section.blocks.size < 1 -%}
+  {%- if request.design_mode -%}
+    <div class="color-{{ section.settings.color_scheme | default: 'scheme-1' }} gradient page-width">
+      <p class="caption">Add testimonials in the section settings.</p>
     </div>
+  {%- endif -%}
+{%- else -%}
+  {{ 'section-testimonials-carousel.css' | asset_url | stylesheet_tag }}
 
-    <div class="page-width">
-      <div class="testimonials-carousel__shell">
-        <button
-          type="button"
-          class="testimonials-carousel__arrow testimonials-carousel__arrow--prev"
-          aria-label="Previous testimonial"
-          data-testimonial-prev
+  {%- style -%}
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+
+    @media screen and (min-width: 768px) {
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+  {%- endstyle -%}
+
+  <div class="color-{{ section.settings.color_scheme }} isolate gradient">
+    <section
+      class="testimonials-carousel section-{{ section.id }}-padding"
+      id="testimonials-carousel-{{ section.id }}"
+      data-testimonials-carousel
+      data-speed="{{ section.settings.speed_px_per_sec | default: 48 }}"
+    >
+      <div class="page-width testimonials-carousel__page">
+        <div class="collection__title title-wrapper title-wrapper--no-top-margin">
+          {%- if section.settings.title != blank -%}
+            <h2
+              class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            >
+              {{ section.settings.title }}
+            </h2>
+          {%- endif -%}
+        </div>
+
+        <div
+          class="testimonials-carousel__viewport"
+          data-carousel-viewport
         >
-          <span class="svg-wrapper">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
-        </button>
-
-        <div class="testimonials-carousel__viewport" aria-live="polite">
-          <div class="testimonials-carousel__track" data-testimonial-track>
-            {%- for block in section.blocks -%}
-              <article
-                class="testimonials-carousel__slide"
-                data-testimonial-slide
-                {{ block.shopify_attributes }}
-              >
-                <h3 class="testimonials-carousel__name">{{ block.settings.name | escape }}</h3>
-                <span class="testimonials-carousel__divider" aria-hidden="true"></span>
-                <div class="testimonials-carousel__quote rte">
-                  {{ block.settings.quote | escape | newline_to_br }}
-                </div>
-              </article>
+          <div
+            class="testimonials-carousel__track testimonials-carousel__track--animated"
+            data-carousel-track
+            id="carousel-track-{{ section.id }}"
+          >
+            {%- for pass in (1..2) -%}
+              {%- for block in section.blocks -%}
+                <article
+                  class="testimonials-carousel__slide"
+                  {% if pass == 1 %}
+                    {{ block.shopify_attributes }}
+                  {% else %}
+                    aria-hidden="true"
+                  {% endif %}
+                >
+                  <div class="testimonials-carousel__body">
+                    <div
+                      class="testimonials-carousel__quote rte"
+                      lang="{{ request.locale.iso_code | default: 'en' }}"
+                    >
+                      {{- block.settings.quote | strip | escape | newline_to_br -}}
+                    </div>
+                  </div>
+                  {%- if block.settings.name != blank -%}
+                    <div class="testimonials-carousel__spacer" aria-hidden="true"></div>
+                    <div class="testimonials-carousel__footer">
+                      <p class="testimonials-carousel__name">{{ block.settings.name | escape }}</p>
+                    </div>
+                  {%- endif -%}
+                </article>
+              {%- endfor -%}
             {%- endfor -%}
           </div>
         </div>
-
-        <button
-          type="button"
-          class="testimonials-carousel__arrow testimonials-carousel__arrow--next"
-          aria-label="Next testimonial"
-          data-testimonial-next
-        >
-          <span class="svg-wrapper">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
-        </button>
       </div>
-    </div>
-  </section>
-</div>
+    </section>
+  </div>
 
-<style>
-  #testimonials-carousel-{{ section.id }} .testimonials-carousel__shell {
-    position: relative;
-    margin: 0 auto;
-    padding: 0 5.2rem;
-  }
+  <script>
+    (() => {
+      const setupTrack = (root) => {
+        if (!root || !root.hasAttribute('data-testimonials-carousel')) return;
 
-  #testimonials-carousel-{{ section.id }} .testimonials-carousel__viewport {
-    overflow: hidden;
-    max-width: 90rem;
-    margin: 0 auto;
-  }
+        const track = root.querySelector('[data-carousel-track]');
+        if (!track) return;
 
-  #testimonials-carousel-{{ section.id }} .testimonials-carousel__track {
-    display: flex;
-    transition: transform 0.35s ease;
-    will-change: transform;
-  }
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          track.classList.remove('testimonials-carousel__track--animated');
+          track.style.removeProperty('--carousel-duration');
+          if (root._carouselResize) {
+            root._carouselResize.disconnect();
+            root._carouselResize = null;
+          }
+          return;
+        }
 
-  #testimonials-carousel-{{ section.id }} .testimonials-carousel__slide {
-    flex: 0 0 100%;
-    text-align: center;
-  }
+        const speed = parseFloat(String(root.getAttribute('data-speed') || '48').trim()) || 48;
+        const setDuration = () => {
+          const half = track.scrollWidth / 2;
+          if (half < 1) return;
+          const sec = half / speed;
+          track.classList.add('testimonials-carousel__track--animated');
+          track.style.setProperty('--carousel-duration', sec + 's');
+        };
 
-  #testimonials-carousel-{{ section.id }} .testimonials-carousel__name {
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: 600;
-    letter-spacing: 0.01em;
-  }
+        setDuration();
 
-  #testimonials-carousel-{{ section.id }} .testimonials-carousel__divider {
-    display: block;
-    width: 3.6rem;
-    height: 0.1rem;
-    background: rgba(var(--color-foreground), 0.6);
-    margin: 2.8rem auto 3.6rem;
-  }
-
-  #testimonials-carousel-{{ section.id }} .testimonials-carousel__quote {
-    max-width: 70ch;
-    margin: 0 auto;
-    color: rgba(var(--color-foreground), 0.9);
-    font-size: 1rem;
-    line-height: 1.35;
-  }
-
-  #testimonials-carousel-{{ section.id }} .testimonials-carousel__quote p {
-    margin: 0;
-  }
-
-  #testimonials-carousel-{{ section.id }} .testimonials-carousel__arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 4.4rem;
-    height: 4.4rem;
-    border: 0;
-    border-radius: 50%;
-    background: rgba(var(--color-background), 0.88);
-    color: rgb(var(--color-foreground));
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 2;
-  }
-
-  #testimonials-carousel-{{ section.id }} .testimonials-carousel__arrow--prev {
-    left: 0;
-  }
-
-  #testimonials-carousel-{{ section.id }} .testimonials-carousel__arrow--next {
-    right: 0;
-  }
-
-  #testimonials-carousel-{{ section.id }} .testimonials-carousel__arrow--prev .svg-wrapper {
-    transform: rotate(90deg);
-  }
-
-  #testimonials-carousel-{{ section.id }} .testimonials-carousel__arrow--next .svg-wrapper {
-    transform: rotate(-90deg);
-  }
-
-  @media screen and (max-width: 749px) {
-    #testimonials-carousel-{{ section.id }} .testimonials-carousel__shell {
-      padding: 0 3.8rem;
-    }
-
-    #testimonials-carousel-{{ section.id }} .testimonials-carousel__arrow {
-      width: 3.6rem;
-      height: 3.6rem;
-    }
-  }
-</style>
-
-<script>
-  (() => {
-    if (window.__testimonialsCarouselBound) return;
-    window.__testimonialsCarouselBound = true;
-
-    const initCarousel = (root) => {
-      if (!root || root.dataset.initialized === 'true') return;
-
-      const track = root.querySelector('[data-testimonial-track]');
-      const slides = Array.prototype.slice.call(root.querySelectorAll('[data-testimonial-slide]'));
-      const prevButton = root.querySelector('[data-testimonial-prev]');
-      const nextButton = root.querySelector('[data-testimonial-next]');
-
-      if (!track || !prevButton || !nextButton || slides.length === 0) {
-        root.dataset.initialized = 'true';
-        return;
-      }
-
-      let index = 0;
-
-      const render = () => {
-        track.style.transform = 'translateX(-' + index * 100 + '%)';
+        if (root._carouselResize) {
+          root._carouselResize.disconnect();
+        }
+        const ro = new ResizeObserver(() => {
+          setDuration();
+        });
+        ro.observe(track);
+        root._carouselResize = ro;
       };
 
-      if (slides.length < 2) {
-        prevButton.setAttribute('hidden', '');
-        nextButton.setAttribute('hidden', '');
-        render();
-        root.dataset.initialized = 'true';
-        return;
+      const init = (container) => {
+        if (!container) return;
+        if (container.matches && container.matches('[data-testimonials-carousel]')) {
+          setupTrack(container);
+        }
+        if (container.querySelectorAll) {
+          container.querySelectorAll('[data-testimonials-carousel]').forEach((n) => setupTrack(n));
+        }
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener(
+          'DOMContentLoaded',
+          function () {
+            init(document);
+          },
+          { once: true }
+        );
+      } else {
+        init(document);
       }
 
-      prevButton.removeAttribute('hidden');
-      nextButton.removeAttribute('hidden');
-
-      prevButton.addEventListener('click', () => {
-        index = (index - 1 + slides.length) % slides.length;
-        render();
+      document.addEventListener('shopify:section:load', (event) => {
+        init(event.target);
       });
+    })();
+  </script>
 
-      nextButton.addEventListener('click', () => {
-        index = (index + 1) % slides.length;
-        render();
-      });
-
-      render();
-      root.dataset.initialized = 'true';
-    };
-
-    const initIn = (container) => {
-      if (!container) return;
-      if (container.matches && container.matches('[data-testimonials-carousel]')) {
-        initCarousel(container);
-      }
-      const roots = container.querySelectorAll ? container.querySelectorAll('[data-testimonials-carousel]') : [];
-      for (let i = 0; i < roots.length; i += 1) {
-        initCarousel(roots[i]);
-      }
-    };
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', function () {
-        initIn(document);
-      });
-    } else {
-      initIn(document);
+  <style>
+    #testimonials-carousel-{{ section.id }} [data-carousel-track].testimonials-carousel__track--animated {
+      animation-duration: var(--carousel-duration, 45s);
     }
-
-    document.addEventListener('shopify:section:load', function (event) {
-      initIn(event.target);
-    });
-  })();
-</script>
+  </style>
+{%- endif -%}
 
 {% schema %}
 {
   "name": "Testimonials carousel",
   "tag": "section",
   "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
   "settings": [
     {
       "type": "text",
       "id": "title",
       "label": "Heading",
-      "default": "CUSTOMERS WORD"
+      "default": "TESTIMONIALS"
     },
     {
       "type": "select",
@@ -264,6 +182,15 @@
       "default": "h2"
     },
     {
+      "type": "range",
+      "id": "speed_px_per_sec",
+      "min": 12,
+      "max": 120,
+      "step": 4,
+      "label": "Scroll speed (pixels per second)",
+      "default": 48
+    },
+    {
       "type": "color_scheme",
       "id": "color_scheme",
       "label": "Color scheme",
@@ -277,7 +204,7 @@
       "step": 4,
       "unit": "px",
       "label": "Top padding",
-      "default": 80
+      "default": 64
     },
     {
       "type": "range",
@@ -287,7 +214,7 @@
       "step": 4,
       "unit": "px",
       "label": "Bottom padding",
-      "default": 80
+      "default": 64
     }
   ],
   "blocks": [
@@ -308,7 +235,12 @@
   "presets": [
     {
       "name": "Testimonials carousel",
-      "blocks": [{ "type": "testimonial" }, { "type": "testimonial" }]
+      "blocks": [
+        { "type": "testimonial" },
+        { "type": "testimonial" },
+        { "type": "testimonial" },
+        { "type": "testimonial" }
+      ]
     }
   ]
 }

@@ -1,0 +1,107 @@
+/* Infinite horizontal carousel: two identical item rows; translateX(-50%) = one full cycle */
+
+.testimonials-carousel {
+	position: relative;
+}
+
+.testimonials-carousel__page.page-width {
+	max-width: 1440px;
+}
+
+.testimonials-carousel__viewport {
+	overflow: hidden;
+	margin: 0 auto;
+	max-width: 100%;
+}
+
+.testimonials-carousel__viewport:hover .testimonials-carousel__track--animated {
+	animation-play-state: paused;
+}
+
+.testimonials-carousel__track {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	gap: 1.5rem;
+	width: max-content;
+	will-change: transform;
+}
+
+.testimonials-carousel__track--animated {
+	animation-name: testimonials-carousel-scroll;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+}
+
+@keyframes testimonials-carousel-scroll {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(-50%);
+	}
+}
+
+.testimonials-carousel__slide {
+	flex: 0 0 auto;
+	width: min(34rem, 90vw);
+	max-width: 34rem;
+	min-height: 22rem;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	text-align: left;
+	padding: 1.75rem 1.5rem 1.5rem;
+	background: rgb(var(--color-background));
+	border: 0.1rem solid rgba(var(--color-foreground), 0.1);
+}
+
+.testimonials-carousel__body {
+	flex: 0 0 auto;
+}
+
+.testimonials-carousel__quote {
+	margin: 0;
+	color: rgba(var(--color-foreground), 0.95);
+	font-size: 1rem;
+	line-height: 1.55;
+	letter-spacing: 0.01em;
+}
+
+.testimonials-carousel__spacer {
+	flex: 1 1 2.5rem;
+	min-height: 1.5rem;
+}
+
+.testimonials-carousel__footer {
+	flex: 0 0 auto;
+	margin-top: auto;
+	padding-top: 0.5rem;
+}
+
+.testimonials-carousel__name {
+	margin: 0;
+	font-size: 0.9rem;
+	font-weight: 600;
+	letter-spacing: 0.02em;
+	line-height: 1.3;
+	color: rgba(var(--color-foreground), 0.95);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.testimonials-carousel__track--animated {
+		animation: none;
+		transform: none;
+	}
+
+	.testimonials-carousel__viewport {
+		overflow-x: auto;
+		overflow-y: hidden;
+		scroll-snap-type: x mandatory;
+		-webkit-overflow-scrolling: touch;
+	}
+
+	.testimonials-carousel__track {
+		padding-bottom: 0.5rem;
+	}
+}
