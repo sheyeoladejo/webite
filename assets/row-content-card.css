@@ -27,3 +27,9 @@
 .row-content-card__button {
 	min-width: 12rem;
 }
+
+.about-founder__media-link,
+.about-founder__content-link {
+	display: block;
+	height: 100%;
+}

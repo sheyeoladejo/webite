@@ -24,7 +24,7 @@
       "settings": {
         "heading": "ÈJÌRÉ",
         "body": "In my latest fashion collection, I drew inspiration from the unique bond shared by twins, a relationship that reflects harmony, contrast, and perfect symmetry. Thus connection is subtly woven into the fabrics and prints, where mirrored patterns and balanced designs symbolise the duality o individuality and unity.\n\n\nEach piece from this collection is a representation of a conversation between two identities, blending together yet distinct, much like twins themselves.\n \n\nThrough this collection, I aim to capture the beauty of their synchrony, and how it translates into a visually captivating, balances aesthetic.",
-        "link": "/collections/ejire",
+        "collection_page_link": "/collections/ejire",
         "reverse_layout": false,
         "color_scheme": "scheme-1",
         "padding_top": 64,
@@ -58,12 +58,12 @@
       "settings": {
         "heading": "ÈJÌRÉ 2.0",
         "body": "There is a rhythm that flows between women: silent, intuitive, unspoken. A rhythm that binds sisters, friends, and kindred souls. Èjiré 2.0 is an ode to that connection, a continuation of Èjiré 1.0, where duality finds new meaning in sisterhood-rooted in the Creative Director's memories of growing up in lle-Ife, Osun state.\n\n\nA world of lush trees, crisp morning air, and the sculptural calm of Obafemi Awolowo University's architecture; this collection draws from a childhood surrounded by balance and beauty. In that space, design met nature, and harmony met imagination. Now, reimagined in Lagos: a city alive with motion, color, and conversation, Ejire 2.o becomes a dialogue between quiet reflection and vibrant energy. It is the meeting of two worlds: past serenity and present pulse",
-        "link": "/collections/ejire-2",
+        "collection_page_link": "/collections/ejire-2",
         "reverse_layout": true,
         "color_scheme": "scheme-1",
         "padding_top": 64,
         "padding_bottom": 64,
-        "featured_collection": "ejire-copy",
+        "featured_collection": "ejire-2-products",
         "featured_collection_mode": true,
         "featured_products_to_show": 3,
         "featured_title": "",

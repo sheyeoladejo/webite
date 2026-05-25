@@ -44,6 +44,11 @@
   }
 {%- endstyle -%}
 
+{%- liquid
+  assign row_link = section.settings.collection_page_link
+  assign explore_button_label = section.settings.explore_button_label
+-%}
+
 <section
   class="about-founder collection-about-row-{{ section.id }} color-{{ section.settings.color_scheme }} gradient"
   aria-labelledby="row-content-card-heading-{{ section.id }}"
@@ -52,7 +57,9 @@
     image: section.settings.featured_collection.image,
     heading: section.settings.heading,
     body: section.settings.body,
-    link: section.settings.link,
+    link: row_link,
+    button_link: row_link,
+    button_label: explore_button_label,
     reverse_layout: section.settings.reverse_layout,
     unique_id: section.id
   %}
@@ -110,8 +117,22 @@
     },
     {
       "type": "url",
-      "id": "link",
-      "label": "Link (optional — entire row is clickable when set)"
+      "id": "collection_page_link",
+      "label": "Collection page link",
+      "info": "Collection landing page URL (e.g. /collections/ejire). Used for the clickable card and explore button."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_explore_button",
+      "label": "Show explore button",
+      "default": true,
+      "info": "Links to the collection page URL above."
+    },
+    {
+      "type": "text",
+      "id": "explore_button_label",
+      "label": "Explore button label",
+      "default": "Explore"
     },
     {
       "type": "checkbox",

@@ -15,13 +15,20 @@
   assign uid = unique_id | default: 'card'
   assign heading_id = 'row-content-card-heading-' | append: uid
   assign heading_out = heading
+  assign use_full_row_link = false
+  if link != blank and button_link == blank
+    assign use_full_row_link = true
+  endif
 -%}
 <div class="row-content-card about-founder__inner page-width">
-  {%- if link != blank -%}
+  {%- if use_full_row_link -%}
     <a href="{{ link }}" class="about-founder__link">
   {%- endif -%}
   <div class="about-founder__grid{% if reverse_layout %} about-founder__grid--reverse{% endif %}">
     <div class="about-founder__media about-founder__media--portrait">
+      {%- if link != blank and button_link != blank -%}
+        <a href="{{ link }}" class="about-founder__link about-founder__media-link">
+      {%- endif -%}
       {%- if image != blank -%}
         {{
           image
@@ -35,8 +42,14 @@
       {%- else -%}
         <div class="about-founder__placeholder">{{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}</div>
       {%- endif -%}
+      {%- if link != blank and button_link != blank -%}
+        </a>
+      {%- endif -%}
     </div>
     <div class="about-founder__text">
+      {%- if link != blank and button_link != blank -%}
+        <a href="{{ link }}" class="about-founder__link about-founder__content-link">
+      {%- endif -%}
       {%- if heading_out != blank -%}
         <h2 id="{{ heading_id }}" class="about-founder__heading">
           {{ heading_out | escape }}
@@ -57,7 +70,10 @@
       {%- if attribution != blank -%}
         <cite class="row-content-card__attribution">{{ attribution | escape }}</cite>
       {%- endif -%}
-      {%- if button_link != blank and link == blank -%}
+      {%- if link != blank and button_link != blank -%}
+        </a>
+      {%- endif -%}
+      {%- if button_link != blank -%}
         <div class="row-content-card__actions">
           <a href="{{ button_link }}" class="button button--secondary row-content-card__button">
             {{ button_label | default: 'Read more' | escape }}
@@ -66,7 +82,7 @@
       {%- endif -%}
     </div>
   </div>
-  {%- if link != blank -%}
+  {%- if use_full_row_link -%}
     </a>
   {%- endif -%}
 </div>
