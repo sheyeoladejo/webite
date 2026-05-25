@@ -159,46 +159,15 @@
         "padding_bottom": 64
       }
     },
-    "featured_infinite_marquee": {
-      "type": "featured-infinite-marquee",
-      "blocks": {
-        "slide_gNtREB": {
-          "type": "slide",
-          "settings": {
-            "quote": "For Temitope, her journey with Sheye Oladejo started long before her wedding day. After seeing a design created for Bonang Matheba at an award show, she instantly connected with the brand’s aesthetic and made a personal decision.\n\n\"When I get married, I’m going to use Sheye.",
-            "name": "Inspiration to a Dream Wedding",
-            "slide_url": "shopify://blogs/moments/from-instagram-inspiration-to-a-dream-wedding-experience",
-            "link_label": "READ MORE"
-          }
-        },
-        "slide_1": {
-          "type": "slide",
-          "settings": {
-            "quote": "Working with the Sheye Oladejo team from start to finish was a wonderful experience. Every step of the process was handled with professionalism, attention to detail, warmth, and genuine care.",
-            "name": "Fulani Bridal",
-            "slide_url": "shopify://blogs/moments/a-fulani-bridal-vision-brought-to-life-with-precision-and-care",
-            "link_label": "READ MORE"
-          }
-        },
-        "slide_4": {
-          "type": "slide",
-          "settings": {
-            "quote": "I felt that the team listened to me during my fittings. I was amazed by how beautiful it looked and how beautiful it made me feel.\"\n\nThis was her comment when she received the final piece, everything came together in a way that felt both beautiful and personal.",
-            "name": "Finding the Right Designer",
-            "slide_url": "shopify://blogs/moments/on-finding-the-right-designer-and-feeling-truly-understood",
-            "link_label": "READ MORE"
-          }
-        }
-      },
-      "block_order": [
-        "slide_gNtREB",
-        "slide_1",
-        "slide_4"
-      ],
+    "moments_home": {
+      "type": "moments-home",
       "settings": {
-        "title": "FEATURED",
+        "blog": "moments",
+        "heading": "MOMENTS",
         "heading_size": "h2",
-        "speed_px_per_sec": 24,
+        "show_image": true,
+        "show_date": true,
+        "show_author": false,
         "color_scheme": "scheme-1",
         "padding_top": 64,
         "padding_bottom": 64
@@ -281,7 +250,7 @@
     "image_banner",
     "book_appointment_or_couture",
     "latest_collection",
-    "featured_infinite_marquee",
+    "moments_home",
     "featured_collection",
     "testimonials_carousel"
   ]

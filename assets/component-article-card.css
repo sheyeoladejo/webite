@@ -78,6 +78,26 @@
 	text-decoration: none;
 }
 
+.article-card-wrapper .card--stacked-product .card__inner {
+	align-items: stretch;
+	width: 100%;
+}
+
+.article-card-wrapper .card--stacked-product .card__inner .card__media {
+	margin: 0;
+	width: 100%;
+	max-width: 100%;
+	align-self: stretch;
+}
+
+.article-card-wrapper .card--stacked-product .card__inner .card__media .media {
+	height: 100%;
+}
+
+.article-card-wrapper .card--stacked-product .card__inner .card__media img {
+	object-position: top center;
+}
+
 .article-card__excerpt {
 	width: 100%;
 	margin-top: 1.2rem;
