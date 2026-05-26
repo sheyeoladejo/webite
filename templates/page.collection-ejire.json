@@ -25,7 +25,11 @@
       "type": "row-content-card-section",
       "settings": {
         "heading": "EJIRE",
-        "body": "In my latest fashion collection, I drew inspiration from the unique bond shared by twins, a relationship that reflects harmony, contrast, and perfect symmetry. Thus connection is subtly woven into the fabrics and prints, where mirrored patterns and balanced designs symbolise the duality o individuality and unity.\n\n\nEach piece from this collection is a representation of a conversation between two identities, blending together yet distinct, much like twins themselves.\n \n\nThrough this collection, I aim to capture the beauty of their synchrony, and how it translates into a visually captivating, balances aesthetic.",
+        "body": "ÈJÌRÉ explores the unique bond shared by twins, a relationship that reflects harmony, contrast, and perfect symmetry. Thus connection is subtly woven into the fabrics and prints, where mirrored patterns and balanced designs symbolise the duality o individuality and unity.\n\n\nEach piece from this collection is a representation of a conversation between two identities, blending together yet distinct, much like twins themselves.\n \n\nThrough this collection, I aim to capture the beauty of their synchrony, and how it translates into a visually captivating, balances aesthetic.",
+        "attribution": "",
+        "button_link": "",
+        "button_label": "Read more",
+        "reverse_layout": false,
         "image": "shopify://shop_images/ejire-2-professional-34.webp",
         "color_scheme": "scheme-1",
         "padding_top": 64,
@@ -61,9 +65,9 @@
       ],
       "settings": {
         "collection": "ejire",
+        "collection_mode": false,
         "products_to_show": 3,
         "color_scheme": "scheme-1",
-        "collection_mode": false,
         "desktop_columns": "3",
         "padding_top": 64,
         "padding_bottom": 64
@@ -101,9 +105,9 @@
       ],
       "settings": {
         "collection": "ejire",
+        "collection_mode": false,
         "products_to_show": 2,
         "color_scheme": "scheme-1",
-        "collection_mode": false,
         "desktop_columns": "2",
         "padding_top": 64,
         "padding_bottom": 64
@@ -126,6 +130,7 @@
       "type": "collection-grid",
       "settings": {
         "collection": "ejire-products",
+        "collection_mode": false,
         "products_to_show": 5,
         "title": "PICK YOUR FAVORITE",
         "heading_size": "h2",
@@ -140,7 +145,6 @@
         "color_scheme": "scheme-1",
         "image_shape": "default",
         "show_secondary_image": true,
-        "collection_mode": false,
         "show_vendor": false,
         "show_rating": false,
         "quick_add": "none",
