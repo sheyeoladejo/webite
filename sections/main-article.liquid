@@ -84,7 +84,7 @@
 
   {%- liquid
     if blog.handle == 'about' or template.suffix == 'about-blog'
-      assign back_url = pages.about.url | default: '/about'
+      assign back_url = pages.about.url | default: '/about-us'
       assign back_label = 'blogs.article.back_to_about_us' | t
     else
       assign back_url = blog.url
