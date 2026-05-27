@@ -1993,6 +1993,10 @@
 						"show_gift_card_recipient": {
 							"label": " Gift card sending options",
 							"info": "Customers can add a personal message and schedule the send date. [Learn more](https://help.shopify.com/manual/online-store/themes/customizing-themes/add-gift-card-recipient-fields)"
+						},
+						"show_pickup_availability": {
+							"label": "Show pickup availability",
+							"info": "Shows whether this product can be picked up at your store locations."
 						}
 					}
 				},
