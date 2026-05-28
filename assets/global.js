@@ -349,56 +349,6 @@ function fetchConfig(type = "json") {
 	};
 }
 
-function applyUsdFallbackOutsideNigeria() {
-	const root = document.body;
-	if (!root) return;
-
-	const currentCountryCode = root.dataset.localizationCountryIso;
-	const usdCountryCode = root.dataset.localizationUsdCountryIso;
-
-	if (!currentCountryCode || !usdCountryCode) return;
-	if (currentCountryCode === "NG" || currentCountryCode === usdCountryCode)
-		return;
-
-	const attemptKey = `usd-fallback:${currentCountryCode}->${usdCountryCode}`;
-	try {
-		if (window.sessionStorage.getItem(attemptKey) === "1") return;
-		window.sessionStorage.setItem(attemptKey, "1");
-	} catch (error) {
-		// Ignore storage restrictions and proceed with a best-effort fallback.
-	}
-
-	const form = document.createElement("form");
-	form.method = "post";
-	form.action = "/localization";
-	form.style.display = "none";
-
-	const countryInput = document.createElement("input");
-	countryInput.type = "hidden";
-	countryInput.name = "country_code";
-	countryInput.value = usdCountryCode;
-
-	const returnToInput = document.createElement("input");
-	returnToInput.type = "hidden";
-	returnToInput.name = "return_to";
-	returnToInput.value = `${window.location.pathname}${window.location.search}`;
-
-	form.appendChild(countryInput);
-	form.appendChild(returnToInput);
-	root.appendChild(form);
-	form.submit();
-}
-
-if (document.readyState === "loading") {
-	document.addEventListener(
-		"DOMContentLoaded",
-		applyUsdFallbackOutsideNigeria,
-		{ once: true },
-	);
-} else {
-	applyUsdFallbackOutsideNigeria();
-}
-
 /*
  * Shopify Common JS
  *

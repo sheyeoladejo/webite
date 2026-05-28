@@ -313,22 +313,9 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
-
-    {%- liquid
-      assign usd_fallback_country_code = ''
-      for country in localization.available_countries
-        if country.currency.iso_code == 'USD' and usd_fallback_country_code == ''
-          assign usd_fallback_country_code = country.iso_code
-        endif
-      endfor
-    -%}
   </head>
 
-  <body
-    class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}{% if template.name == 'index' %} template-index{% endif %}{% if template.name == 'page' and template.suffix == 'about' %} template-about{% endif %}{% if template.name == 'collection' %} template-collection{% endif %}"
-    data-localization-country-iso="{{ localization.country.iso_code }}"
-    data-localization-usd-country-iso="{{ usd_fallback_country_code }}"
-  >
+  <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}{% if template.name == 'index' %} template-index{% endif %}{% if template.name == 'page' and template.suffix == 'about' %} template-about{% endif %}{% if template.name == 'collection' %} template-collection{% endif %}">
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>
