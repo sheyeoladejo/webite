@@ -259,6 +259,61 @@ product-info {
 	right: 1.5rem;
 }
 
+.product-form__size-row {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+	gap: 1.2rem;
+	margin-bottom: 1.2rem;
+	max-width: 44rem;
+	width: 100%;
+}
+
+.product-form__size-row .product-form__input--dropdown {
+	flex: 1 1 auto;
+	margin-bottom: 0;
+	min-width: 0;
+}
+
+.product-form__size-chart {
+	flex: 0 0 auto;
+	display: flex;
+	align-items: flex-end;
+}
+
+.product-form__size-chart .Clean_Size_Chart,
+.product-form__size-chart .Clean_Size_Chart a,
+.product-form__size-chart .Clean_Size_Chart button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 3rem;
+	padding: 0 0.5rem;
+	font: inherit;
+	font-size: 0.9375rem;
+	letter-spacing: 0.1rem;
+	line-height: 1;
+	text-decoration: none !important;
+	color: rgb(var(--color-background));
+	cursor: pointer;
+	white-space: nowrap;
+	border: 0;
+	border-radius: var(--buttons-radius-outset);
+	background-color: rgb(var(--color-foreground));
+	transition: opacity var(--duration-short) ease;
+}
+
+.product-form__size-chart .Clean_Size_Chart a:hover,
+.product-form__size-chart .Clean_Size_Chart button:hover {
+	opacity: 0.85;
+}
+
+.product-form__size-chart .Clean_Size_Chart a *,
+.product-form__size-chart .Clean_Size_Chart button * {
+	color: inherit;
+	text-decoration: none !important;
+}
+
 .product-form__submit {
 	margin-bottom: 1rem;
 }
@@ -435,18 +490,18 @@ a.product__text {
 	.product-form__input--pill
 	input[type="radio"]
 	+ label {
-	margin-right: 1.2rem;
 	margin-bottom: 0;
-	padding: 1.6rem 2.8rem;
+	margin-right: 0.5rem;
 	letter-spacing: 0;
-	font-size: 1.6rem;
+	font-size: 1.25rem;
+	height: 3.375rem;
 }
 
 .product__info-container
 	.product-form__input--swatch
 	.swatch-input__input
 	+ .swatch-input__label {
-	margin-right: 1.6rem;
+	margin-right: 1rem;
 }
 
 .product__info-container .product-form__quantity {
@@ -534,6 +589,17 @@ a.product__text {
 .product__info-container .product-form__submit,
 .product__info-container .shopify-payment-button__button {
 	border-radius: var(--buttons-radius-outset);
+}
+
+.product__info-container .product-form__submit.addtocart-button,
+.product__info-container .product-form__submit.button--primary {
+	background-color: rgb(var(--color-foreground));
+	color: rgb(var(--color-background));
+}
+
+.product__info-container .product-form__submit.addtocart-button .button-text,
+.product__info-container .product-form__submit.button--primary .button-text {
+	color: inherit;
 }
 
 .product__info-container .product-form__buttons--row,
@@ -807,20 +873,19 @@ a.product__text {
 	max-width: 44rem;
 }
 
-.restock-rocket-preorder-description{
+.restock-rocket-preorder-description {
 	background-color: transparent !important;
 	color: rgb(var(--color-foreground)) !important;
 	padding: 0 !important;
 }
 
-.restock-rocket-preorder-description .preorder-detail-text{
+.restock-rocket-preorder-description .preorder-detail-text {
 	color: rgb(var(--color-foreground)) !important;
 }
 
 .restock-rocket-preorder-description .preorder-detail-icon {
 	display: none !important;
 }
-
 
 .price.price--large.price--final-pieces.price--show-badge {
 	display: flex;
@@ -1006,8 +1071,7 @@ a.product__text {
 	.product--thumbnail .product__media-list,
 	.product--thumbnail_slider .product__media-list {
 		padding-bottom: calc(
-			var(--media-shadow-vertical-offset) *
-			var(--media-shadow-visible)
+			var(--media-shadow-vertical-offset) * var(--media-shadow-visible)
 		);
 	}
 
@@ -1020,8 +1084,7 @@ a.product__text {
 
 	.product__media-list {
 		padding-right: calc(
-			var(--media-shadow-horizontal-offset) *
-			var(--media-shadow-visible)
+			var(--media-shadow-horizontal-offset) * var(--media-shadow-visible)
 		);
 	}
 
@@ -1457,8 +1520,8 @@ a.product__text {
 		0 0 0 0.3rem rgb(var(--color-background)),
 		0 0 0.5rem 0.4rem rgba(var(--color-foreground), 0.3),
 		var(--popup-shadow-horizontal-offset) var(--popup-shadow-vertical-offset)
-		var(--popup-shadow-blur-radius)
-		rgba(var(--color-shadow), var(--popup-shadow-opacity));
+			var(--popup-shadow-blur-radius)
+			rgba(var(--color-shadow), var(--popup-shadow-opacity));
 }
 
 .product-popup-modal__content:focus-visible {
@@ -1466,8 +1529,8 @@ a.product__text {
 		0 0 0 0.3rem rgb(var(--color-background)),
 		0 0 0.5rem 0.4rem rgba(var(--color-foreground), 0.3),
 		var(--popup-shadow-horizontal-offset) var(--popup-shadow-vertical-offset)
-		var(--popup-shadow-blur-radius)
-		rgba(var(--color-shadow), var(--popup-shadow-opacity));
+			var(--popup-shadow-blur-radius)
+			rgba(var(--color-shadow), var(--popup-shadow-opacity));
 }
 
 @media screen and (min-width: 768px) {

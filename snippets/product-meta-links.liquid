@@ -11,10 +11,6 @@
         {{- settings.product_meta_refund_text | default: 'Hassle-free returns within 30 days.' -}}
       </a>
     </div>
-
-    <span class="product__meta-lg-only">
-      <div class="Clean_Size_Chart"></div>
-    </span>
   </div>
   <div class="product__meta-links-contact-share">
     <div class="product__meta-links-row">
@@ -59,9 +55,8 @@
     </div>
   </div>
 
-  {%- comment -%} Mobile layout: size chart + share on the same row {%- endcomment -%}
+  {%- comment -%} Mobile layout: share {%- endcomment -%}
   <div class="product__meta-links-mobile-row large-up-hide medium-hide">
-    <div class="Clean_Size_Chart"></div>
     <div class="product__meta-share">
       <a
         href="{{ canonical_url | default: request.origin | append: request.path }}"

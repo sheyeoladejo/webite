@@ -64,6 +64,9 @@
           %}
         </fieldset>
       {%- else -%}
+        {%- if option_name_downcase == 'size' -%}
+          <div class="product-form__size-row">
+        {%- endif -%}
         <div class="product-form__input product-form__input--dropdown">
           <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
             {{ option.name }}
@@ -95,6 +98,12 @@
             </span>
           </div>
         </div>
+        {%- if option_name_downcase == 'size' -%}
+          <div class="product-form__size-chart">
+            <div class="Clean_Size_Chart"></div>
+          </div>
+          </div>
+        {%- endif -%}
       {%- endif -%}
     {%- endfor -%}
 

@@ -22,9 +22,9 @@ variant-selects {
 	max-width: 100%;
 }
 
-:is(.product-form__input--pill, .product-form__input--swatch) .form__label {
+/* :is(.product-form__input--pill, .product-form__input--swatch) .form__label {
 	margin-bottom: 0.2rem;
-}
+} */
 
 .product-form__input input[type="radio"] {
 	clip: rect(0, 0, 0, 0);
@@ -67,9 +67,11 @@ variant-selects {
 	color: rgba(var(--color-foreground));
 	border-radius: var(--variant-pills-radius);
 	color: rgb(var(--color-foreground));
-	display: inline-block;
-	margin: 0.7rem 0.5rem 0.2rem 0;
-	padding: 1rem 2rem;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	/* margin: 0.7rem 0.5rem 0.2rem 0; */
+	padding: 0 2rem;
 	font-size: 0.875rem;
 	letter-spacing: 0.1rem;
 	line-height: 1;
