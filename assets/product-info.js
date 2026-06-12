@@ -6,6 +6,7 @@ if (!customElements.get("product-info")) {
 			quantityForm = undefined;
 			onVariantChangeUnsubscriber = undefined;
 			cartUpdateUnsubscriber = undefined;
+			cleanSizeChartObserver = undefined;
 			abortController = undefined;
 			pendingRequestUrl = null;
 			preProcessHtmlCallbacks = [];
@@ -27,6 +28,8 @@ if (!customElements.get("product-info")) {
 
 				this.initQuantityHandlers();
 				this.syncDynamicCheckoutVisibilityFromCurrentState();
+				this.remountCleanSizeChart();
+				this.observeCleanSizeChartMount();
 				this.dispatchEvent(
 					new CustomEvent("product-info:loaded", { bubbles: true }),
 				);
@@ -54,6 +57,7 @@ if (!customElements.get("product-info")) {
 			disconnectedCallback() {
 				this.onVariantChangeUnsubscriber();
 				this.cartUpdateUnsubscriber?.();
+				this.cleanSizeChartObserver?.disconnect();
 			}
 
 			initializeProductSwapUtility() {
@@ -68,6 +72,7 @@ if (!customElements.get("product-info")) {
 					window?.Shopify?.PaymentButton?.init();
 					this.syncDynamicCheckoutVisibilityFromCurrentState();
 					window?.ProductModel?.loadShopifyXR();
+					this.remountCleanSizeChart();
 				});
 			}
 
@@ -188,13 +193,97 @@ if (!customElements.get("product-info")) {
 			}
 
 			updateOptionValues(html) {
+				this.parkCleanSizeChart();
+
 				const variantSelects = html.querySelector("variant-selects");
 				if (variantSelects) {
 					HTMLUpdateUtility.viewTransition(
 						this.variantSelectors,
 						variantSelects,
 						this.preProcessHtmlCallbacks,
+						[() => this.remountCleanSizeChart()],
 					);
+				} else {
+					this.remountCleanSizeChart();
+				}
+			}
+
+			parkCleanSizeChart() {
+				const host = this.querySelector("[data-clean-size-chart-host]");
+				const mount = this.querySelector(
+					"[data-size-chart-spacer] .Clean_Size_Chart",
+				);
+				if (!host || !mount || host.contains(mount)) return;
+
+				host.appendChild(mount);
+				this.syncCleanSizeChartVisibility();
+			}
+
+			remountCleanSizeChart() {
+				const host = this.querySelector("[data-clean-size-chart-host]");
+				const spacer = this.querySelector("[data-size-chart-spacer]");
+				if (!host || !spacer) return;
+
+				let mount = host.querySelector(".Clean_Size_Chart");
+				if (!mount) {
+					mount = document.createElement("div");
+					mount.className = "Clean_Size_Chart";
+					host.appendChild(mount);
+				}
+
+				spacer.appendChild(mount);
+				this.reinjectCleanSizeChartIfEmpty(mount);
+				this.syncCleanSizeChartVisibility();
+				this.observeCleanSizeChartMount();
+			}
+
+			syncCleanSizeChartVisibility() {
+				const spacer = this.querySelector("[data-size-chart-spacer]");
+				const mount = spacer?.querySelector(".Clean_Size_Chart");
+				if (!spacer) return;
+
+				spacer.classList.toggle(
+					"product-form__size-chart--has-content",
+					!!mount?.hasChildNodes(),
+				);
+			}
+
+			observeCleanSizeChartMount() {
+				this.cleanSizeChartObserver?.disconnect();
+
+				const mount =
+					this.querySelector("[data-size-chart-spacer] .Clean_Size_Chart") ||
+					this.querySelector("[data-clean-size-chart-host] .Clean_Size_Chart");
+				if (!mount) return;
+
+				this.cleanSizeChartObserver = new MutationObserver(() => {
+					this.syncCleanSizeChartVisibility();
+				});
+				this.cleanSizeChartObserver.observe(mount, {
+					childList: true,
+					subtree: true,
+				});
+			}
+
+			reinjectCleanSizeChartIfEmpty(mount) {
+				if (mount.hasChildNodes()) return;
+
+				const template = document.querySelector("#ccpops-trigger-container");
+				if (!template) return;
+
+				const clone = template.cloneNode(true);
+				mount.appendChild(clone);
+
+				const trigger = mount.querySelector(".ccpops-trigger");
+				const reference = document.querySelector(".ccpops-trigger");
+				if (!trigger || !reference?.onclick) return;
+
+				trigger.onclick = reference.onclick;
+				const popupId = reference.parentElement?.getAttribute(
+					"data-ccpops-trigger",
+				);
+				if (popupId) {
+					clone.setAttribute("data-ccpops-trigger", popupId);
 				}
 			}
 

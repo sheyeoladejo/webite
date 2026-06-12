@@ -9,11 +9,15 @@
   {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
 {% endcomment %}
 {%- unless product.has_only_default_variant -%}
-  <variant-selects
-    id="variant-selects-{{ section.id }}"
-    data-section="{{ section.id }}"
-    {{ block.shopify_attributes }}
-  >
+  <div class="product-form__variant-picker">
+    <div class="product-form__size-chart-host" data-clean-size-chart-host>
+      <div class="Clean_Size_Chart"></div>
+    </div>
+    <variant-selects
+      id="variant-selects-{{ section.id }}"
+      data-section="{{ section.id }}"
+      {{ block.shopify_attributes }}
+    >
     {%- for option in product.options_with_values -%}
       {%- liquid
         assign swatch_count = option.values | map: 'swatch' | compact | size
@@ -99,9 +103,7 @@
           </div>
         </div>
         {%- if option_name_downcase == 'size' -%}
-          <div class="product-form__size-chart">
-            <div class="Clean_Size_Chart"></div>
-          </div>
+          <div class="product-form__size-chart" data-size-chart-spacer></div>
           </div>
         {%- endif -%}
       {%- endif -%}
@@ -111,4 +113,5 @@
       {{ product.selected_or_first_available_variant | json }}
     </script>
   </variant-selects>
+  </div>
 {%- endunless -%}
