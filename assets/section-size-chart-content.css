@@ -1,0 +1,109 @@
+.size-chart-content {
+	color: rgb(var(--color-foreground));
+}
+
+.size-chart-content__inner {
+	max-width: 760px;
+	margin: 0 auto;
+}
+
+.size-chart-content__intro {
+	max-width: 680px;
+	margin: 0 auto 2.4rem;
+	text-align: center;
+}
+
+.size-chart-content__heading {
+	margin: 0;
+	font-family: var(--font-heading-family);
+	font-size: clamp(2.4rem, 4vw, 4rem);
+	font-weight: 500;
+	letter-spacing: 0.12em;
+	line-height: 1.2;
+	text-transform: uppercase;
+}
+
+.size-chart-content__text {
+	margin: 1rem 0 0;
+	color: rgba(var(--color-foreground), 0.76);
+	font-size: 1rem;
+	line-height: 1.55;
+}
+
+.size-chart-content__group + .size-chart-content__group {
+	margin-top: 3.2rem;
+}
+
+.size-chart-content__table-title {
+	margin: 0 0 0.8rem;
+	font-family: var(--font-heading-family);
+	font-size: clamp(1.3rem, 2vw, 1.6rem);
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	line-height: 1.2;
+	text-transform: uppercase;
+}
+
+.size-chart-content__table-wrap {
+	overflow-x: auto;
+	border: 0.1rem solid rgba(var(--color-foreground), 0.22);
+	background: rgb(var(--color-background));
+	-webkit-overflow-scrolling: touch;
+}
+
+.size-chart-content__table {
+	width: 100%;
+	min-width: 42rem;
+	border-collapse: collapse;
+	text-align: center;
+	font-size: 1rem;
+	line-height: 1.2;
+}
+
+.size-chart-content__table th,
+.size-chart-content__table td {
+	padding: 0.35rem 0.45rem;
+	border: 0.1rem solid rgba(var(--color-foreground), 0.28);
+}
+
+.size-chart-content__table thead th {
+	background: rgb(var(--color-foreground));
+	color: rgb(var(--color-background));
+	font-weight: 700;
+	font-size: 0.95rem;
+	letter-spacing: 0.02em;
+}
+
+.size-chart-content__table tbody th,
+.size-chart-content__table tbody td {
+	font-weight: 400;
+}
+
+.size-chart-content__table tbody tr:nth-child(even) {
+	background: rgba(var(--color-foreground), 0.025);
+}
+
+@media screen and (max-width: 749px) {
+	.size-chart-content__intro {
+		margin-bottom: 2rem;
+		text-align: left;
+	}
+
+	.size-chart-content__group + .size-chart-content__group {
+		margin-top: 2.4rem;
+	}
+
+	.size-chart-content__table-title {
+		margin-bottom: 0.6rem;
+	}
+
+	.size-chart-content__table {
+		min-width: 36rem;
+		font-size: 0.95rem;
+	}
+
+	.size-chart-content__table th,
+	.size-chart-content__table td {
+		padding: 0.3rem 0.35rem;
+	}
+}

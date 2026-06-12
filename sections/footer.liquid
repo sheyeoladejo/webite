@@ -46,6 +46,9 @@
           >
             {{ section.settings.label_consultation | escape }}
           </a>
+          <a href="{{ section.settings.link_size_chart }}" class="footer-custom__link">
+            {{- section.settings.label_size_chart | escape -}}
+          </a>
           <a href="{{ section.settings.link_faq }}" class="footer-custom__link">
             {{- section.settings.label_faq | escape -}}
           </a>
@@ -296,6 +299,12 @@
     },
     {
       "type": "text",
+      "id": "label_size_chart",
+      "label": "Size chart link",
+      "default": "Size Chart"
+    },
+    {
+      "type": "text",
       "id": "label_faq",
       "label": "FAQ link",
       "default": "FAQ"
@@ -400,6 +409,12 @@
       "id": "link_consultation",
       "label": "Book A Consultation link",
       "default": "/book-consultation"
+    },
+    {
+      "type": "text",
+      "id": "link_size_chart",
+      "label": "Size chart page",
+      "default": "/size-chart"
     },
     {
       "type": "header",

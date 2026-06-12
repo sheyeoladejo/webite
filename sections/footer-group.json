@@ -16,6 +16,7 @@
       "settings": {
         "help_column_heading": "Need Help?",
         "label_consultation": "Book A Consultation",
+        "label_size_chart": "Size Chart",
         "label_faq": "FAQ",
         "label_returns": "Want to make a return?",
         "label_privacy": "Privacy Policy",
@@ -33,6 +34,7 @@
         "link_delivery": "/delivery-policy",
         "link_contact": "/pages/contact",
         "link_consultation": "/book-consultation",
+        "link_size_chart": "/size-chart",
         "email": "info@sheyeoladejo.com",
         "whatsapp_number": "+2348146404789",
         "instagram_url": "https://instagram.com/sheyeoladejo",

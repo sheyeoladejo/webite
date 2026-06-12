@@ -19,7 +19,14 @@
 
 {%- liquid
   assign hero_inner_layout = section.settings.inner_layout | default: 'theme'
+  assign only_page_handle = section.settings.only_page_handle | strip
+  assign should_render_section = true
   assign resolved_heading = section.settings.heading | strip
+  if only_page_handle != blank
+    if page == blank or page.handle != only_page_handle
+      assign should_render_section = false
+    endif
+  endif
   if product != blank
     assign breadcrumb_template_type = 'product'
   elsif collection != blank
@@ -42,6 +49,7 @@
   endif
 -%}
 
+{%- if should_render_section -%}
 <div class="hero-secondary__section hero-secondary-{{ section.id }}">
   {%- if hero_inner_layout == 'page' -%}
     <div class="hero-secondary__page-shell">
@@ -49,14 +57,16 @@
   {%- else -%}
     <div class="page-width">
   {%- endif -%}
-  {% render 'breadcrumbs',
-    template_type: breadcrumb_template_type,
-    product: product,
-    collection: collection,
-    page: page,
-    current_title: resolved_heading,
-    class: 'breadcrumbs breadcrumbs--hero-secondary'
-  %}
+  {%- unless section.settings.show_breadcrumbs == false -%}
+    {% render 'breadcrumbs',
+      template_type: breadcrumb_template_type,
+      product: product,
+      collection: collection,
+      page: page,
+      current_title: resolved_heading,
+      class: 'breadcrumbs breadcrumbs--hero-secondary'
+    %}
+  {%- endunless -%}
   {%- if hero_inner_layout != 'page' -%}
     </div>
   {%- endif -%}
@@ -114,6 +124,7 @@
     </div>
   {%- endif -%}
 </div>
+{%- endif -%}
 
 <style>
   .hero-secondary__page-inner {
@@ -212,6 +223,18 @@
         }
       ],
       "default": "theme"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_breadcrumbs",
+      "label": "Show breadcrumbs",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "only_page_handle",
+      "label": "Only show on page handle",
+      "info": "Leave blank to show everywhere this section is added."
     },
     {
       "type": "header",

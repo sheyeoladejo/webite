@@ -1,0 +1,47 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "page-breadcrumbs",
+      "settings": {
+        "heading": "Size chart",
+        "color_scheme": "scheme-1",
+        "padding_top": 64,
+        "padding_bottom": 0
+      }
+    },
+    "hero": {
+      "type": "hero-secondary",
+      "settings": {
+        "heading": "Size chart",
+        "inner_layout": "page",
+        "show_breadcrumbs": false,
+        "padding_top": 0,
+        "padding_bottom": 64
+      }
+    },
+    "main": {
+      "type": "size-chart-content",
+      "settings": {
+        "heading": "",
+        "text": "Some styles may run True-to-size/Run-Large/Run-Small.\n\nPlease check product description or product specific size guide if there may be style specific size variation or you can also call customer care for sizing assistance.",
+        "color_scheme": "scheme-1",
+        "padding_top": 64,
+        "padding_bottom": 96
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "hero",
+    "main"
+  ]
+}

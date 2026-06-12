@@ -14,7 +14,29 @@
 			"settings": {
 				"color_scheme": "scheme-1"
 			}
+		},
+		"size_chart_hero": {
+			"type": "hero-secondary",
+			"settings": {
+				"heading": "Size chart",
+				"inner_layout": "page",
+				"show_breadcrumbs": false,
+				"only_page_handle": "size-chart",
+				"padding_top": 0,
+				"padding_bottom": 64
+			}
+		},
+		"size_chart_main": {
+			"type": "size-chart-content",
+			"settings": {
+				"heading": "",
+				"text": "Some styles may run True-to-size/Run-Large/Run-Small.\n\nPlease check product description or product specific size guide if there may be style specific size variation or you can also call customer care for sizing assistance.",
+				"only_page_handle": "size-chart",
+				"color_scheme": "scheme-1",
+				"padding_top": 64,
+				"padding_bottom": 96
+			}
 		}
 	},
-	"order": ["hero"]
+	"order": ["hero", "size_chart_hero", "size_chart_main"]
 }

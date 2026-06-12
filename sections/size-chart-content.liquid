@@ -1,0 +1,299 @@
+{{ 'section-size-chart-content.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign only_page_handle = section.settings.only_page_handle | strip
+  assign should_render_section = true
+  if only_page_handle != blank
+    if page == blank or page.handle != only_page_handle
+      assign should_render_section = false
+    endif
+  endif
+-%}
+
+{%- style -%}
+  .size-chart-content-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 768px) {
+    .size-chart-content-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- if should_render_section -%}
+<section class="size-chart-content size-chart-content-{{ section.id }} color-{{ section.settings.color_scheme }} gradient">
+  <div class="size-chart-content__inner page-width">
+    {%- if section.settings.heading != blank or section.settings.text != blank -%}
+      <div class="size-chart-content__intro">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="size-chart-content__heading">{{ section.settings.heading | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.text != blank -%}
+          <div class="size-chart-content__text rte">
+            {{ section.settings.text | escape | newline_to_br }}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="size-chart-content__group">
+      <h3 class="size-chart-content__table-title">Clothing sizes</h3>
+      <div class="size-chart-content__table-wrap">
+        <table class="size-chart-content__table">
+          <caption class="visually-hidden">
+            Clothing sizes by US size, bust, waist, and hips in inches and centimeters.
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col" rowspan="2">US Size</th>
+              <th scope="colgroup" colspan="2">Bust</th>
+              <th scope="colgroup" colspan="2">Waist</th>
+              <th scope="colgroup" colspan="2">Hips</th>
+            </tr>
+            <tr>
+              <th scope="col">Inches</th>
+              <th scope="col">CM</th>
+              <th scope="col">Inches</th>
+              <th scope="col">CM</th>
+              <th scope="col">Inches</th>
+              <th scope="col">CM</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">2</th>
+              <td>31</td>
+              <td>78.5</td>
+              <td>23.75</td>
+              <td>60.5</td>
+              <td>34</td>
+              <td>86.5</td>
+            </tr>
+            <tr>
+              <th scope="row">4</th>
+              <td>32</td>
+              <td>81</td>
+              <td>24.5</td>
+              <td>63</td>
+              <td>35</td>
+              <td>89</td>
+            </tr>
+            <tr>
+              <th scope="row">6</th>
+              <td>34</td>
+              <td>86</td>
+              <td>26.5</td>
+              <td>68</td>
+              <td>37</td>
+              <td>94</td>
+            </tr>
+            <tr>
+              <th scope="row">8</th>
+              <td>36</td>
+              <td>91</td>
+              <td>28.5</td>
+              <td>73</td>
+              <td>39</td>
+              <td>99</td>
+            </tr>
+            <tr>
+              <th scope="row">10</th>
+              <td>38</td>
+              <td>96</td>
+              <td>30.5</td>
+              <td>78</td>
+              <td>41</td>
+              <td>104</td>
+            </tr>
+            <tr>
+              <th scope="row">12</th>
+              <td>40</td>
+              <td>101</td>
+              <td>32.5</td>
+              <td>83</td>
+              <td>43</td>
+              <td>109</td>
+            </tr>
+            <tr>
+              <th scope="row">14</th>
+              <td>42</td>
+              <td>106</td>
+              <td>34.5</td>
+              <td>88</td>
+              <td>43</td>
+              <td>114</td>
+            </tr>
+            <tr>
+              <th scope="row">16</th>
+              <td>44</td>
+              <td>111</td>
+              <td>36.5</td>
+              <td>93</td>
+              <td>47</td>
+              <td>119</td>
+            </tr>
+            <tr>
+              <th scope="row">18</th>
+              <td>46</td>
+              <td>116</td>
+              <td>38.5</td>
+              <td>98</td>
+              <td>49</td>
+              <td>124</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="size-chart-content__group">
+      <h3 class="size-chart-content__table-title">International sizes</h3>
+      <div class="size-chart-content__table-wrap">
+        <table class="size-chart-content__table">
+          <caption class="visually-hidden">
+            International size conversion by size, UK, Europe, USA and Canada, and Australia and New Zealand.
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Size</th>
+              <th scope="col">UK</th>
+              <th scope="col">Europe</th>
+              <th scope="col">USA/CAN</th>
+              <th scope="col">AUS/NZL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">XS</th>
+              <td>4</td>
+              <td>32</td>
+              <td>0</td>
+              <td>4</td>
+            </tr>
+            <tr>
+              <th scope="row" rowspan="2">S</th>
+              <td>6</td>
+              <td>34</td>
+              <td>2</td>
+              <td>6</td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td>36</td>
+              <td>4</td>
+              <td>8</td>
+            </tr>
+            <tr>
+              <th scope="row" rowspan="2">M</th>
+              <td>10</td>
+              <td>38</td>
+              <td>6</td>
+              <td>10</td>
+            </tr>
+            <tr>
+              <td>12</td>
+              <td>40</td>
+              <td>8</td>
+              <td>12</td>
+            </tr>
+            <tr>
+              <th scope="row" rowspan="2">L</th>
+              <td>14</td>
+              <td>42</td>
+              <td>10</td>
+              <td>14</td>
+            </tr>
+            <tr>
+              <td>16</td>
+              <td>44</td>
+              <td>12</td>
+              <td>16</td>
+            </tr>
+            <tr>
+              <th scope="row" rowspan="2">XL</th>
+              <td>18</td>
+              <td>46</td>
+              <td>14</td>
+              <td>18</td>
+            </tr>
+            <tr>
+              <td>20</td>
+              <td>48</td>
+              <td>16</td>
+              <td>20</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Size chart content",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Size chart"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Intro text",
+      "default": "Some styles may run True-to-size/Run-Large/Run-Small.\n\nPlease check product description or product specific size guide if there may be style specific size variation or you can also call customer care for sizing assistance."
+    },
+    {
+      "type": "text",
+      "id": "only_page_handle",
+      "label": "Only show on page handle",
+      "info": "Leave blank to show everywhere this section is added."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 128,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 128,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 96
+    }
+  ],
+  "presets": [
+    {
+      "name": "Size chart content"
+    }
+  ]
+}
+{% endschema %}
