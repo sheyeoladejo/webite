@@ -356,11 +356,6 @@
         quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t: quantity: '[quantity]' }}`,
       };
 
-      window.newsletterStrings = {
-        success: `{{ 'newsletter.success' | t }}`,
-        error: `{{ 'newsletter.error' | t }}`,
-      };
-
       window.variantStrings = {
         addToCart: `{{ 'products.product.add_to_cart' | t }}`,
         soldOut: `{{ 'products.product.sold_out' | t }}`,
@@ -399,7 +394,6 @@
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
-    <script src="{{ 'newsletter-form.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'card-image-skeleton.js' | asset_url }}" defer="defer"></script>
   </body>
 </html>

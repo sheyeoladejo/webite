@@ -127,27 +127,27 @@
             {%- if section.settings.label_newsletter != blank -%}
               <p class="footer-custom__subheading">{{ section.settings.label_newsletter | escape }}</p>
             {%- endif -%}
-            {% form 'customer', id: 'FooterNewsletterForm', class: 'newsletter-form footer-newsletter-form js-newsletter-ajax' %}
+            {% form 'customer', id: 'FooterNewsletterForm', class: 'newsletter-form footer-newsletter-form' %}
               <input type="hidden" name="contact[tags]" value="newsletter">
-              <div hidden data-newsletter-icons>
-                <span data-icon-success class="svg-wrapper">
-                  {{- 'icon-success.svg' | inline_asset_content -}}
-                </span>
-                <span data-icon-error class="svg-wrapper">
-                  {{- 'icon-error.svg' | inline_asset_content -}}
-                </span>
-              </div>
-              <div data-newsletter-fields class="footer-newsletter-form__fields">
+              <div class="footer-newsletter-form__fields">
                 <div class="field footer-newsletter-form__field">
                   <input
                     id="FooterNewsletterEmail"
                     type="email"
                     name="contact[email]"
                     class="field__input"
+                    value="{{ form.email }}"
                     aria-required="true"
                     autocorrect="off"
                     autocapitalize="off"
                     autocomplete="email"
+                    {% if form.errors %}
+                      autofocus
+                      aria-invalid="true"
+                      aria-describedby="FooterNewsletter-error"
+                    {% elsif form.posted_successfully? %}
+                      aria-describedby="FooterNewsletter-success"
+                    {% endif %}
                     placeholder="{{ 'newsletter.label' | t }}"
                     required
                   >
@@ -162,7 +162,31 @@
                   {{ 'newsletter.button_label' | t }}
                 </button>
               </div>
-              <div data-newsletter-feedback hidden></div>
+              {%- if form.errors -%}
+                <small class="newsletter-form__message form__message" id="FooterNewsletter-error">
+                  <span class="svg-wrapper">
+                    {{- 'icon-error.svg' | inline_asset_content -}}
+                  </span>
+                  {{- form.errors.translated_fields.email | capitalize }}
+                  {{ form.errors.messages.email -}}
+                </small>
+              {%- endif -%}
+              {%- if form.posted_successfully? -%}
+                <h3
+                  class="newsletter-form__message newsletter-form__message--success form__message"
+                  id="FooterNewsletter-success"
+                  tabindex="-1"
+                  autofocus
+                >
+                  <span class="svg-wrapper">
+                    {{- 'icon-success.svg' | inline_asset_content -}}
+                  </span>
+                  {{- 'newsletter.success' | t }}
+                </h3>
+                <script>
+                  localStorage.setItem('sheye_newsletter_subscribed', 'true');
+                </script>
+              {%- endif -%}
             {% endform %}
           </div>
         {%- endunless -%}
