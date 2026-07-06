@@ -98,3 +98,7 @@
 .newsletter-form--modal .newsletter-form__message--success {
 	margin-top: 1.2rem;
 }
+
+.newsletter-form--modal [data-newsletter-feedback] .newsletter-form__message {
+	justify-content: center;
+}

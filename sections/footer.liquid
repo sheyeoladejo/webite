@@ -3,11 +3,6 @@
 {{ 'component-newsletter.css' | asset_url | stylesheet_tag }}
 
 {%- assign accent_grey = settings.color_accent_grey | default: '#D5D0CD' -%}
-{%- assign footer_newsletter_return = request.path | append: '?newsletter_source=footer' -%}
-{%- assign footer_newsletter_submitted = false -%}
-{%- if request.params.newsletter_source == 'footer' -%}
-  {%- assign footer_newsletter_submitted = true -%}
-{%- endif -%}
 {%- style -%}
   .footer-custom-{{ section.id }} {
     border-top: 1px solid {{ accent_grey }};
@@ -132,31 +127,27 @@
             {%- if section.settings.label_newsletter != blank -%}
               <p class="footer-custom__subheading">{{ section.settings.label_newsletter | escape }}</p>
             {%- endif -%}
-            {% form 'customer',
-              id: 'FooterNewsletterForm',
-              class: 'newsletter-form footer-newsletter-form',
-              return_to: footer_newsletter_return
-            %}
+            {% form 'customer', id: 'FooterNewsletterForm', class: 'newsletter-form footer-newsletter-form js-newsletter-ajax' %}
               <input type="hidden" name="contact[tags]" value="newsletter">
-              <div class="footer-newsletter-form__fields">
+              <div hidden data-newsletter-icons>
+                <span data-icon-success class="svg-wrapper">
+                  {{- 'icon-success.svg' | inline_asset_content -}}
+                </span>
+                <span data-icon-error class="svg-wrapper">
+                  {{- 'icon-error.svg' | inline_asset_content -}}
+                </span>
+              </div>
+              <div data-newsletter-fields class="footer-newsletter-form__fields">
                 <div class="field footer-newsletter-form__field">
                   <input
                     id="FooterNewsletterEmail"
                     type="email"
                     name="contact[email]"
                     class="field__input"
-                    value="{{ form.email }}"
                     aria-required="true"
                     autocorrect="off"
                     autocapitalize="off"
                     autocomplete="email"
-                    {% if form.errors %}
-                      autofocus
-                      aria-invalid="true"
-                      aria-describedby="FooterNewsletter-error"
-                    {% elsif form.posted_successfully? %}
-                      aria-describedby="FooterNewsletter-success"
-                    {% endif %}
                     placeholder="{{ 'newsletter.label' | t }}"
                     required
                   >
@@ -171,30 +162,7 @@
                   {{ 'newsletter.button_label' | t }}
                 </button>
               </div>
-
-              {%- if form.errors and footer_newsletter_submitted -%}
-                <small class="newsletter-form__message form__message" id="FooterNewsletter-error">
-                  <span class="svg-wrapper">
-                    {{- 'icon-error.svg' | inline_asset_content -}}
-                  </span>
-                  {{- form.errors.translated_fields.email | capitalize }}
-                  {{ form.errors.messages.email -}}
-                </small>
-              {%- endif -%}
-              {%- if form.posted_successfully? and footer_newsletter_submitted -%}
-                <p
-                  class="newsletter-form__message newsletter-form__message--success form__message"
-                  id="FooterNewsletter-success"
-                >
-                  <span class="svg-wrapper">
-                    {{- 'icon-success.svg' | inline_asset_content -}}
-                  </span>
-                  {{- 'newsletter.success' | t }}
-                </p>
-                <script>
-                  localStorage.setItem('sheye_newsletter_subscribed', 'true');
-                </script>
-              {%- endif -%}
+              <div data-newsletter-feedback hidden></div>
             {% endform %}
           </div>
         {%- endunless -%}
@@ -402,6 +370,9 @@
   }
   .footer-newsletter-form .newsletter-form__message--success {
     margin-top: 0.8rem;
+  }
+  .footer-newsletter-form [data-newsletter-feedback] .newsletter-form__message {
+    justify-content: flex-start;
   }
 </style>
 

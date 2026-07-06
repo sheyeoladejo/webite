@@ -14,17 +14,6 @@ if (!customElements.get("newsletter-modal")) {
 
 			this.bindCloseTracking();
 
-			if (document.getElementById("NewsletterModal-success")) {
-				localStorage.setItem(SUBSCRIBED_KEY, "true");
-				this.openModal();
-				return;
-			}
-
-			if (document.getElementById("NewsletterModal-error")) {
-				this.openModal();
-				return;
-			}
-
 			if (this.shouldAutoShow()) {
 				const delay = Number.parseInt(this.dataset.delay || "3", 10) * 1000;
 				this.autoShowTimeout = window.setTimeout(() => {
