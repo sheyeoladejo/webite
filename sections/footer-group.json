@@ -15,6 +15,7 @@
       "type": "footer",
       "settings": {
         "help_column_heading": "Need Help?",
+        "label_newsletter": "Subscribe to newsletter",
         "label_consultation": "Book A Consultation",
         "label_size_chart": "Size Chart",
         "label_faq": "FAQ",

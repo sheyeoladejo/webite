@@ -332,6 +332,10 @@
 
     {% sections 'footer-group' %}
 
+    {%- if template.name == 'product' -%}
+      {% section 'newsletter-modal' %}
+    {%- endif -%}
+
     <ul hidden>
       <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
       <li id="a11y-new-window-message">{{ 'accessibility.link_messages.new_window' | t }}</li>

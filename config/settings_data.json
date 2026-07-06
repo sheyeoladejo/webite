@@ -147,6 +147,15 @@
         "settings": {
           "color_scheme": "scheme-1"
         }
+      },
+      "newsletter-modal": {
+        "type": "newsletter-modal",
+        "settings": {
+          "heading": "Subscribe to our emails",
+          "text": "<p>Be the first to know about new collections and exclusive offers.</p>",
+          "color_scheme": "scheme-1",
+          "auto_show_delay": 3
+        }
       }
     },
     "content_for_index": [],

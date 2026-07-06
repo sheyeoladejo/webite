@@ -1,7 +1,13 @@
 {% comment %}theme-check-disable UndefinedObject{% endcomment %}
 {{ 'component-list-social.css' | asset_url | stylesheet_tag }}
+{{ 'component-newsletter.css' | asset_url | stylesheet_tag }}
 
 {%- assign accent_grey = settings.color_accent_grey | default: '#D5D0CD' -%}
+{%- assign footer_newsletter_return = request.path | append: '?newsletter_source=footer' -%}
+{%- assign footer_newsletter_submitted = false -%}
+{%- if request.params.newsletter_source == 'footer' -%}
+  {%- assign footer_newsletter_submitted = true -%}
+{%- endif -%}
 {%- style -%}
   .footer-custom-{{ section.id }} {
     border-top: 1px solid {{ accent_grey }};
@@ -120,6 +126,78 @@
             </a>
           </p>
         </div>
+
+        {%- unless customer -%}
+          <div class="footer-custom__group footer-custom__newsletter">
+            {%- if section.settings.label_newsletter != blank -%}
+              <p class="footer-custom__subheading">{{ section.settings.label_newsletter | escape }}</p>
+            {%- endif -%}
+            {% form 'customer',
+              id: 'FooterNewsletterForm',
+              class: 'newsletter-form footer-newsletter-form',
+              return_to: footer_newsletter_return
+            %}
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              <div class="footer-newsletter-form__fields">
+                <div class="field footer-newsletter-form__field">
+                  <input
+                    id="FooterNewsletterEmail"
+                    type="email"
+                    name="contact[email]"
+                    class="field__input"
+                    value="{{ form.email }}"
+                    aria-required="true"
+                    autocorrect="off"
+                    autocapitalize="off"
+                    autocomplete="email"
+                    {% if form.errors %}
+                      autofocus
+                      aria-invalid="true"
+                      aria-describedby="FooterNewsletter-error"
+                    {% elsif form.posted_successfully? %}
+                      aria-describedby="FooterNewsletter-success"
+                    {% endif %}
+                    placeholder="{{ 'newsletter.label' | t }}"
+                    required
+                  >
+                </div>
+
+                <button
+                  type="submit"
+                  class="button footer-newsletter-form__submit"
+                  name="commit"
+                  aria-label="{{ 'newsletter.button_label' | t }}"
+                >
+                  {{ 'newsletter.button_label' | t }}
+                </button>
+              </div>
+
+              {%- if form.errors and footer_newsletter_submitted -%}
+                <small class="newsletter-form__message form__message" id="FooterNewsletter-error">
+                  <span class="svg-wrapper">
+                    {{- 'icon-error.svg' | inline_asset_content -}}
+                  </span>
+                  {{- form.errors.translated_fields.email | capitalize }}
+                  {{ form.errors.messages.email -}}
+                </small>
+              {%- endif -%}
+              {%- if form.posted_successfully? and footer_newsletter_submitted -%}
+                <p
+                  class="newsletter-form__message newsletter-form__message--success form__message"
+                  id="FooterNewsletter-success"
+                >
+                  <span class="svg-wrapper">
+                    {{- 'icon-success.svg' | inline_asset_content -}}
+                  </span>
+                  {{- 'newsletter.success' | t }}
+                </p>
+                <script>
+                  localStorage.setItem('sheye_newsletter_subscribed', 'true');
+                </script>
+              {%- endif -%}
+            {% endform %}
+          </div>
+        {%- endunless -%}
 
         {% comment %}
           <div class="footer-custom__locale">
@@ -271,6 +349,60 @@
   .footer-custom__localization-form .disclosure__button {
     font-size: 15px;
   }
+  .footer-custom__newsletter {
+    margin-top: 1.6rem;
+  }
+  .footer-newsletter-form {
+    align-items: stretch;
+    max-width: none;
+    margin: 0;
+  }
+  .footer-newsletter-form__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    width: 100%;
+  }
+  @media screen and (min-width: 480px) {
+    .footer-newsletter-form__fields {
+      flex-direction: row;
+      align-items: stretch;
+    }
+  }
+  .footer-newsletter-form__field {
+    flex: 1;
+    min-width: 0;
+  }
+  .footer-newsletter-form__field .field__input {
+    padding-block: 0;
+    padding-inline: 1rem;
+    height: 3rem;
+    font-size: 1rem;
+  }
+  .footer-newsletter-form__field .field__input:focus,
+  .footer-newsletter-form__field .field__input:not(:placeholder-shown) {
+    font-size: 1rem;
+  }
+  .footer-newsletter-form__field .field__input::placeholder {
+    opacity: 1;
+    color: rgba(var(--color-foreground), 0.55);
+    font-size: 1rem;
+  }
+  .footer-newsletter-form__submit {
+    padding-block: 0;
+    padding-inline: 1rem;
+    height: 3rem;
+    min-height: 3rem;
+    min-width: 0;
+    white-space: nowrap;
+  }
+  .footer-newsletter-form .newsletter-form__message {
+    justify-content: flex-start;
+    margin-top: 0.8rem;
+  }
+  .footer-newsletter-form .newsletter-form__message--success {
+    margin-top: 0.8rem;
+  }
 </style>
 
 {% schema %}
@@ -280,6 +412,12 @@
     {
       "type": "paragraph",
       "content": "Footer logo uses the theme asset logo-text-horizontal.svg (Theme > Edit code > Assets)."
+    },
+    {
+      "type": "text",
+      "id": "label_newsletter",
+      "label": "Newsletter heading",
+      "default": "Subscribe to newsletter"
     },
     {
       "type": "header",
