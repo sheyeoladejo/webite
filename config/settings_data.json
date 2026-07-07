@@ -151,7 +151,7 @@
       "newsletter-modal": {
         "type": "newsletter-modal",
         "settings": {
-          "heading": "Subscribe to our emails",
+          "heading": "Join the circle. First access, always",
           "text": "<p>Be the first to know about new collections and exclusive offers.</p>",
           "color_scheme": "scheme-1",
           "auto_show_delay": 3

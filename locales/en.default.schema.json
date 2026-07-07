@@ -1037,7 +1037,7 @@
 				},
 				"newsletter_heading": {
 					"label": "Heading",
-					"default": "Subscribe to our emails"
+					"default": "Join the circle. First access, always"
 				},
 				"header__1": {
 					"content": "Email signup",
@@ -2585,7 +2585,7 @@
 					"settings": {
 						"heading": {
 							"label": "Heading",
-							"default": "Subscribe to our emails"
+							"default": "Join the circle. First access, always"
 						}
 					}
 				},
