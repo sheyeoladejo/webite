@@ -44,6 +44,14 @@
 	text-transform: uppercase;
 }
 
+.size-chart-content__table-note {
+	margin: -0.2rem 0 0.8rem;
+	color: rgba(var(--color-foreground), 0.76);
+	font-size: 0.95rem;
+	font-style: italic;
+	line-height: 1.45;
+}
+
 .size-chart-content__table-wrap {
 	overflow-x: auto;
 	border: 0.1rem solid rgba(var(--color-foreground), 0.22);
